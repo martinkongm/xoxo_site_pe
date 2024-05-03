@@ -1,4 +1,6 @@
 from django.db import models
+from django.contrib.auth.hashers import make_password
+from django.contrib.auth.models import AbstractBaseUser
 
 # Create your models here.
 class Coleccion(models.Model):
@@ -13,18 +15,20 @@ class Coleccion(models.Model):
         verbose_name_plural = 'Colecciones'
     
 class Producto(models.Model):
+    OPCIONES_STATUS = [
+        ('ACTIVO', 'ACTIVO'),
+        ('ARCHIVADO', 'ARCHIVADO'),
+    ]
+
     nombre = models.CharField(max_length=200)
-    status = models.CharField(max_length=20)
+    status = models.CharField(max_length=20, choices=OPCIONES_STATUS)
     stock = models.IntegerField(default=0)
-    #canales_de_ventas = models.IntegerField(default=0)
-    #mercados = models.IntegerField(default=0)
     categoria = models.ForeignKey('Categoria', on_delete=models.CASCADE)
     proveedor = models.ForeignKey('Proveedor', on_delete=models.CASCADE)
-    coleccion = models.ForeignKey('Coleccion', on_delete=models.SET_NULL, blank=True, null=True)
-
+    coleccion = models.ForeignKey('Coleccion', on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
-        return self.coleccion.nombre + " | " + self.nombre 
+        return self.nombre + " | Colección: " + self.coleccion.nombre + " | Estatus: " + self.status + " | Proveedor: " + self.proveedor.nombre
 
 class Categoria(models.Model):
     nombre = models.CharField(max_length=100)
@@ -73,6 +77,11 @@ class Pedido(models.Model):
         ('no_entregado', 'No entregado'),
     ]
 
+    OPCIONES_FORMA_ENTREGA = [
+        ('correosPac', 'Correos PAC'),
+        ('pedidosYa', 'Pedidos Ya'),
+    ]
+
     codigo = models.AutoField(primary_key=True)
     fecha = models.DateTimeField(auto_now_add=True)
     cliente = models.ForeignKey(Cliente, related_name='pedidos', on_delete=models.CASCADE)
@@ -81,7 +90,18 @@ class Pedido(models.Model):
     estatus_pedido = models.CharField(max_length=20, choices=OPCIONES_ESTATUS_PEDIDO)
     items = models.IntegerField()
     estatus_entrega = models.CharField(max_length=20, choices=OPCIONES_ESTATUS_ENTREGA)
-    forma_entrega = models.CharField(max_length=100)
+    forma_entrega = models.CharField(max_length=100, choices=OPCIONES_FORMA_ENTREGA)
 
     def __str__(self):
-        return f"Pedido {self.codigo} - Cliente: {self.cliente.nombre}"
+        return f"Pedido #{self.codigo} - Cliente: {self.cliente.nombre}"
+    
+class Usuario(AbstractBaseUser):
+    nombre = models.CharField(max_length=100)
+    apellido = models.CharField(max_length=100)
+    email = models.EmailField(unique=True)
+
+    def set_password(self, raw_password):
+        self.password = make_password(raw_password)
+    
+    def __str__(self):
+        return f"{self.nombre} {self.apellido} - {self.email}"
