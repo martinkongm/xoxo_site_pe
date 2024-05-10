@@ -39,6 +39,14 @@ const NavbarExample = () => {
                 Q & A Preguntas frecuentes
               </Nav.Link>
             </Nav>
+            <Form className="d-flex" style={{ marginLeft: 'auto', marginRight: 'auto' }}>
+              <div className="input-group" style={{ width: '250px' }}>
+                <Form.Control type="search" placeholder="Buscar" aria-label="Search" style={{ borderRadius: '20px 0px 0px 20px', borderRight: 'none', backgroundColor: 'rgba(169,169,169,0.3)', color: 'rgba(0,0,0,0.5)' }} />
+                <button className="btn btn-outline-success hoverable-icon" type="submit" style={{ borderRadius: '0px 20px 20px 0px', borderLeft: 'none', backgroundColor: '#F18FB8', borderBlockColor: '#F18FB8' }}>
+                  <FontAwesomeIcon icon={faSearch} style={{ color: '#FFFFFF' }} />
+                </button>
+              </div>
+            </Form>
             <Nav className="ms-auto" style={{ marginLeft: 'auto', marginRight: 'auto' }}>
               <Nav.Link as={Link} to="#" className="nav-link hoverable-icon" style={{ marginRight: '5px' }}>
                 <FontAwesomeIcon icon={faUser} />
@@ -49,14 +57,7 @@ const NavbarExample = () => {
                 <FontAwesomeIcon icon={faShoppingCart} />
               </Nav.Link>
             </Nav>
-            <Form className="d-flex" style={{ marginLeft: 'auto', marginRight: 'auto' }}>
-              <div className="input-group" style={{ width: '250px' }}>
-                <Form.Control type="search" placeholder="Buscar" aria-label="Search" style={{ borderRadius: '20px 0px 0px 20px', borderRight: 'none', backgroundColor: 'rgba(169,169,169,0.3)', color: 'rgba(0,0,0,0.5)' }} />
-                <button className="btn btn-outline-success hoverable-icon" type="submit" style={{ borderRadius: '0px 20px 20px 0px', borderLeft: 'none', backgroundColor: '#F18FB8', borderBlockColor: '#F18FB8' }}>
-                  <FontAwesomeIcon icon={faSearch} style={{ color: '#FFFFFF' }} />
-                </button>
-              </div>
-            </Form>
+
           </Navbar.Collapse>
         </Container>
       </Navbar>

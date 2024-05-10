@@ -47,7 +47,7 @@ const Footer = () => {
           <Col md={3}>
             <Row>
               <Col>
-                <img src="/src/components/navegacion/logo2.jpg" alt="Logo" style={{ width: '150px', marginTop: '8px' }} />
+                <img src="/src/components/footer/logo2.jpg" alt="Logo" style={{ width: '150px', marginTop: '8px' }} />
                 <Row>
                   <Col style={{ marginTop: '55px' }}>
                     <img src="icon1.png" alt="Icon" style={{ width: '30px', marginRight: '5px' }} />
