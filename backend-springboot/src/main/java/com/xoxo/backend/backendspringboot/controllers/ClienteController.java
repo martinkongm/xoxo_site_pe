@@ -69,7 +69,6 @@ public class ClienteController {
                     .object(null)
                     .build(), HttpStatus.METHOD_NOT_ALLOWED);
         }
-
     }
 
     @PutMapping("/cliente/{id}")
