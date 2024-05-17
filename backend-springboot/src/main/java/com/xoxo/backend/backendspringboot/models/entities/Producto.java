@@ -1,6 +1,8 @@
 package com.xoxo.backend.backendspringboot.models.entities;
 
 import java.io.Serializable;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -25,6 +27,7 @@ public class Producto implements Serializable{
 
     @ManyToOne
     @JoinColumn(name = "id_coleccion")
+    @JsonBackReference
     private Coleccion coleccion;
     
 }

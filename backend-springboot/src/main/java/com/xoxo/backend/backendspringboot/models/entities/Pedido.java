@@ -29,4 +29,5 @@ public class Pedido implements Serializable{
     @JoinColumn(name = "cliente_id", nullable = false)
     @JsonBackReference
     private Cliente clientePedido;
+
 }

@@ -7,13 +7,13 @@ import com.xoxo.backend.backendspringboot.models.entities.Producto;
 
 public interface IProductoService {
 
-    List<ProductoDto> listAll();
+    List<Producto> listAll();
 
-    Producto save(ProductoDto cliente);
+    Producto save(ProductoDto productoDto);
 
-    ProductoDto findById(Integer id);
+    Producto findById(Integer id);
 
-    void delete(ProductoDto cliente);
+    void delete(Producto producto);
 
     boolean existsById(Integer id);
 

@@ -13,7 +13,7 @@ import com.xoxo.backend.backendspringboot.services.IClienteService;
 @Service
 public class ClienteServiceImpl implements IClienteService{
 
-    private ClienteDao clienteDao;
+    private final ClienteDao clienteDao;
 
     public ClienteServiceImpl(ClienteDao clienteDao) {
         this.clienteDao = clienteDao;
@@ -45,11 +45,13 @@ public class ClienteServiceImpl implements IClienteService{
     }
 
     @Override
+    @Transactional(readOnly = true)
     public boolean existsById(Integer id) {
         return clienteDao.existsById(id);    
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Cliente> listAll() {
         return (List<Cliente>) clienteDao.findAll();
     }

@@ -1,38 +1,33 @@
 package com.xoxo.backend.backendspringboot.controllers;
 
-import java.util.List;
-
+import com.xoxo.backend.backendspringboot.models.dto.ClienteDto;
+import com.xoxo.backend.backendspringboot.models.dto.UsuarioDto;
+import com.xoxo.backend.backendspringboot.models.entities.Cliente;
+import com.xoxo.backend.backendspringboot.models.entities.Usuario;
+import com.xoxo.backend.backendspringboot.models.payload.MensajeResponse;
+import com.xoxo.backend.backendspringboot.services.IClienteService;
+import com.xoxo.backend.backendspringboot.services.IUsuarioService;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import com.xoxo.backend.backendspringboot.models.dto.ClienteDto;
-import com.xoxo.backend.backendspringboot.models.entities.Cliente;
-import com.xoxo.backend.backendspringboot.models.payload.MensajeResponse;
-import com.xoxo.backend.backendspringboot.services.IClienteService;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1")
-public class ClienteController {
+public class UsuarioController {
 
-    private final IClienteService clienteService;
+    private IUsuarioService usuarioService;
 
-    public ClienteController(IClienteService clienteService) {
-        this.clienteService = clienteService;
+    public UsuarioController(IUsuarioService usuarioService) {
+        this.usuarioService = usuarioService;
     }
 
-    @GetMapping("/clientes")
+    @GetMapping("/usuarios")
     public ResponseEntity<?> showAll() {
-        List<Cliente> getLista = clienteService.listAll();
-        if (getLista == null) {
+        List<Usuario> getList = usuarioService.listAll();
+        if (getList == null) {
             return new ResponseEntity<>(MensajeResponse.builder()
                     .mensaje("No existen registros.")
                     .object(null)
@@ -40,27 +35,27 @@ public class ClienteController {
         }
         return new ResponseEntity<>(MensajeResponse.builder()
                 .mensaje("Listando registros.")
-                .object(getLista)
+                .object(getList)
                 .build(), HttpStatus.OK);
     }
 
     // Los recursos que se crean siempre son de tipo POST
-    @PostMapping("/cliente")
-    public ResponseEntity<?> create(@RequestBody ClienteDto clienteDto) {
-        Cliente clienteSave;
+    @PostMapping("/usuario")
+    public ResponseEntity<?> create(@RequestBody UsuarioDto usuarioDto) {
+        Usuario usuarioSave;
         try {
-            clienteSave = clienteService.save(clienteDto);
-            clienteDto = ClienteDto.builder()
-                    .idCliente(clienteSave.getIdCliente())
-                    .nombre(clienteSave.getNombre())
-                    .apellido(clienteSave.getApellido())
-                    .correo(clienteSave.getCorreo())
-                    .fechaRegistro(clienteSave.getFechaRegistro())
+            usuarioSave = usuarioService.save(usuarioDto);
+            usuarioDto = UsuarioDto.builder()
+                    .idUsuario(usuarioSave.getIdUsuario())
+                    .nombre(usuarioSave.getNombre())
+                    .apellido(usuarioSave.getApellido())
+                    .correo(usuarioSave.getCorreo())
+                    .fechaRegistro(usuarioSave.getFechaRegistro())
                     .build();
 
             return new ResponseEntity<>(MensajeResponse.builder()
                     .mensaje("Guardado correctamente")
-                    .object(clienteDto)
+                    .object(usuarioDto)
                     .build(), HttpStatus.CREATED);
         } catch (DataAccessException e) {
             return new ResponseEntity<>(MensajeResponse.builder()
@@ -70,23 +65,23 @@ public class ClienteController {
         }
     }
 
-    @PutMapping("/cliente/{id}")
-    public ResponseEntity<?> update(@RequestBody ClienteDto clienteDto, @PathVariable Integer id) {
-        Cliente clienteUpdate = null;
+    @PutMapping("/usuario/{id}")
+    public ResponseEntity<?> update(@RequestBody UsuarioDto usuarioDto, @PathVariable Integer id) {
+        Usuario usuarioUpdate = null;
         try {
-            if (clienteService.existsById(id)) {
-                clienteDto.setIdCliente(id);
-                clienteUpdate = clienteService.save(clienteDto);
-                clienteDto = ClienteDto.builder()
-                        .idCliente(clienteUpdate.getIdCliente())
-                        .nombre(clienteUpdate.getNombre())
-                        .apellido(clienteUpdate.getApellido())
-                        .correo(clienteUpdate.getCorreo())
-                        .fechaRegistro(clienteUpdate.getFechaRegistro())
+            if (usuarioService.existsById(id)) {
+                usuarioDto.setIdUsuario(id);
+                usuarioUpdate = usuarioService.save(usuarioDto);
+                usuarioDto = UsuarioDto.builder()
+                        .idUsuario(usuarioUpdate.getIdUsuario())
+                        .nombre(usuarioUpdate.getNombre())
+                        .apellido(usuarioUpdate.getApellido())
+                        .correo(usuarioUpdate.getCorreo())
+                        .fechaRegistro(usuarioUpdate.getFechaRegistro())
                         .build();
                 return new ResponseEntity<>(MensajeResponse.builder()
                         .mensaje("Modificado correctamente")
-                        .object(clienteDto)
+                        .object(usuarioDto)
                         .build(), HttpStatus.CREATED);
             } else {
                 return new ResponseEntity<>(MensajeResponse.builder()
@@ -105,12 +100,12 @@ public class ClienteController {
 
     // ResponseEntity maneja toda la respuesta HTTP (cuerpo, cabecera, códigos de
     // estado)
-    @DeleteMapping("/cliente/{id}")
+    @DeleteMapping("/usuario/{id}")
     public ResponseEntity<?> delete(@PathVariable Integer id) {
         try {
-            Cliente clienteDelete = clienteService.findById(id);
-            clienteService.delete(clienteDelete);
-            return new ResponseEntity<>(clienteDelete, HttpStatus.NO_CONTENT);
+            Usuario usuarioDelete = usuarioService.findById(id);
+            usuarioService.delete(usuarioDelete);
+            return new ResponseEntity<>(usuarioDelete, HttpStatus.NO_CONTENT);
         } catch (DataAccessException e) {
             return new ResponseEntity<>(MensajeResponse.builder()
                     .mensaje(e.getMessage())
@@ -119,10 +114,10 @@ public class ClienteController {
         }
     }
 
-    @GetMapping("/cliente/{id}")
+    @GetMapping("/usuario/{id}")
     public ResponseEntity<?> showById(@PathVariable Integer id) {
-        Cliente cliente = clienteService.findById(id);
-        if (cliente == null) {
+        Usuario usuario = usuarioService.findById(id);
+        if (usuario == null) {
             return new ResponseEntity<>(MensajeResponse.builder()
                     .mensaje("El registro que intentas buscar no existe.")
                     .object(null)
@@ -130,15 +125,13 @@ public class ClienteController {
         }
         return new ResponseEntity<>(MensajeResponse.builder()
                 .mensaje("Consulta exitosa.")
-                .object(ClienteDto.builder()
-                        .idCliente(cliente.getIdCliente())
-                        .nombre(cliente.getNombre())
-                        .apellido(cliente.getApellido())
-                        .correo(cliente.getCorreo())
-                        .fechaRegistro(cliente.getFechaRegistro())
+                .object(UsuarioDto.builder()
+                        .idUsuario(usuario.getIdUsuario())
+                        .nombre(usuario.getNombre())
+                        .apellido(usuario.getApellido())
+                        .correo(usuario.getCorreo())
+                        .fechaRegistro(usuario.getFechaRegistro())
                         .build())
                 .build(), HttpStatus.OK);
-
     }
-
 }
