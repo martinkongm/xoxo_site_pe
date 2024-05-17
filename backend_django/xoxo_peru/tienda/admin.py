@@ -1,6 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
+
 from .models import Producto, Categoria, Proveedor, Coleccion, Usuario, Pedido
 
 admin.site.register(Producto)

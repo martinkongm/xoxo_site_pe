@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -43,5 +44,6 @@ public class Cliente implements Serializable {
     private Date fechaRegistro;
 
     @OneToMany(mappedBy = "clientePedido", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<Pedido> pedidos;
 }

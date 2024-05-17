@@ -49,10 +49,8 @@ public class ClienteServiceImpl implements IClienteService{
         return clienteDao.existsById(id);    
     }
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
     @Override
     public List<Cliente> listAll() {
-        return (List) clienteDao.findAll();
+        return (List<Cliente>) clienteDao.findAll();
     }
-
 }

@@ -3,6 +3,7 @@ package com.xoxo.backend.backendspringboot.models.entities;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -13,7 +14,6 @@ import lombok.*;
 @Builder
 @Table(name = "pedidos")
 public class Pedido implements Serializable{
-
     @Id
     @Column(name = "id_pedido")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,7 +26,7 @@ public class Pedido implements Serializable{
     private Double totalPedido;
 
     @ManyToOne
-    @JoinColumn(name = "id_cliente")
+    @JoinColumn(name = "cliente_id", nullable = false)
+    @JsonBackReference
     private Cliente clientePedido;
-
 }

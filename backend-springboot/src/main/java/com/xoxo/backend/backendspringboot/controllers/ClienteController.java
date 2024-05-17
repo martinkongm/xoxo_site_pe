@@ -42,13 +42,12 @@ public class ClienteController {
                 .mensaje("Listando registros.")
                 .object(getList)
                 .build(), HttpStatus.OK);
-
     }
 
     // Los recursos que se crean siempre son de tipo POST
     @PostMapping("/cliente")
     public ResponseEntity<?> create(@RequestBody ClienteDto clienteDto) {
-        Cliente clienteSave = null;
+        Cliente clienteSave;
         try {
             clienteSave = clienteService.save(clienteDto);
             clienteDto = ClienteDto.builder()
