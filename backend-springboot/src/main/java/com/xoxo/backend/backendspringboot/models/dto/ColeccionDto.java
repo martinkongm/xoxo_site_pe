@@ -13,7 +13,7 @@ import lombok.ToString;
 @Builder
 public class ColeccionDto implements Serializable{
 
-    private Integer idColeccion;
+    private Long idColeccion;
 
     private String nombreColeccion;
 

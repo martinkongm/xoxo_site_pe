@@ -1,9 +1,9 @@
 package com.xoxo.backend.backendspringboot.services.impl;
 
 import com.xoxo.backend.backendspringboot.models.dao.UsuarioDao;
-import com.xoxo.backend.backendspringboot.models.dto.ProductoDto;
-import com.xoxo.backend.backendspringboot.models.dto.UsuarioDto;
-import com.xoxo.backend.backendspringboot.models.entities.Producto;
+import com.xoxo.backend.backendspringboot.models.dto.UsuarioCreateDto;
+import com.xoxo.backend.backendspringboot.models.dto.UsuarioResponseDto;
+import com.xoxo.backend.backendspringboot.models.dto.UsuarioUpdateDto;
 import com.xoxo.backend.backendspringboot.models.entities.Usuario;
 import com.xoxo.backend.backendspringboot.services.IUsuarioService;
 import org.springframework.stereotype.Service;
@@ -27,21 +27,35 @@ public class UsuarioServiceImpl implements IUsuarioService {
     }
 
     @Override
+    @Transactional(readOnly = true)
+    public Usuario findById(Long id) {
+        return usuarioDao.findById(id).orElse(null);
+    }
+
+    @Override
     @Transactional
-    public Usuario save(UsuarioDto usuarioDto) {
+    public Usuario save(UsuarioCreateDto usuarioCreateDto) {
         Usuario usuario = Usuario.builder()
-                .idUsuario(usuarioDto.getIdUsuario())
-                .nombre(usuarioDto.getNombre())
-                .apellido(usuarioDto.getApellido())
-                .correo(usuarioDto.getCorreo())
+                .nombreUsuario(usuarioCreateDto.getNombreUsuario())
+                .apellidoUsuario(usuarioCreateDto.getApellidoUsuario())
+                .correoUsuario(usuarioCreateDto.getCorreoUsuario())
+                .fechaRegistro(usuarioCreateDto.getFechaRegistro())
+                .contrasenaUsuario(usuarioCreateDto.getContrasenaUsuario())
                 .build();
         return usuarioDao.save(usuario);
     }
 
     @Override
-    @Transactional(readOnly = true)
-    public Usuario findById(Integer id) {
-        return usuarioDao.findById(id).orElse(null);
+    @Transactional
+    public Usuario update(UsuarioUpdateDto usuarioUpdateDto) {
+        Usuario usuario = usuarioDao.findById(usuarioUpdateDto.getIdUsuario()).orElseThrow();
+
+        usuario.setNombreUsuario(usuarioUpdateDto.getNombreUsuario());
+        usuario.setApellidoUsuario(usuarioUpdateDto.getApellidoUsuario());
+        usuario.setCorreoUsuario(usuarioUpdateDto.getCorreoUsuario());
+        usuario.setFechaRegistro(usuarioUpdateDto.getFechaRegistro());
+
+        return usuarioDao.save(usuario);
     }
 
     @Override
@@ -52,7 +66,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
 
     @Override
     @Transactional(readOnly = true)
-    public boolean existsById(Integer id) {
+    public boolean existsById(Long id) {
         return usuarioDao.existsById(id);
     }
 }

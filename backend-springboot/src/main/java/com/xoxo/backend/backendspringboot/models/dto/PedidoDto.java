@@ -2,8 +2,7 @@ package com.xoxo.backend.backendspringboot.models.dto;
 
 import java.util.Date;
 
-import com.xoxo.backend.backendspringboot.models.entities.Cliente;
-
+import com.xoxo.backend.backendspringboot.models.entities.Usuario;
 import lombok.Builder;
 import lombok.Data;
 import lombok.ToString;
@@ -13,12 +12,12 @@ import lombok.ToString;
 @Builder
 public class PedidoDto {
 
-    private Integer idPedido;
+    private Long idPedido;
 
     private Date fechaPedido;
 
     private Double totalPedido;
 
-    private Cliente clientePedido;
+    private Usuario usuarioPedido;
 
 }

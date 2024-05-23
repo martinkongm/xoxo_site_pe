@@ -1,5 +1,7 @@
 package com.xoxo.backend.backendspringboot.models.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -21,19 +23,27 @@ public class Usuario implements Serializable {
     @Id
     @Column(name = "id_usuario")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idUsuario;
+    private Long idUsuario;
 
-    @Column(name = "nombre")
-    private String nombre;
+    @Column(name = "nombre_usuario", nullable = false)
+    private String nombreUsuario;
 
-    @Column(name = "apellido")
-    private String apellido;
+    @Column(name = "apellido_usuario", nullable = false)
+    private String apellidoUsuario;
 
-    @Column(name = "correo")
-    private String correo;
+    @Column(name = "correo_usuario", nullable = false)
+    private String correoUsuario;
 
-    @Column(name = "fecha_registro")
+    @Column(name = "fecha_registro", nullable = false)
     private Date fechaRegistro;
 
+    @Column(name = "contrasena_usuario", length = 12, nullable = false)
+    @JsonIgnore
+    private String contrasenaUsuario;
 
+    @OneToMany(mappedBy = "reviewUsuario", cascade = CascadeType.ALL)
+    private List<Review> reviewsUsuario;
+
+    @OneToMany(mappedBy = "usuarioPedido", cascade = CascadeType.ALL)
+    private List<Pedido> pedidosUsuario;
 }

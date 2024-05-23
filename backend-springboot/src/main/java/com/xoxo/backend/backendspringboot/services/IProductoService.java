@@ -2,19 +2,22 @@ package com.xoxo.backend.backendspringboot.services;
 
 import java.util.List;
 
-import com.xoxo.backend.backendspringboot.models.dto.ProductoDto;
+import com.xoxo.backend.backendspringboot.models.dto.ProductoCreateDto;
+import com.xoxo.backend.backendspringboot.models.dto.ProductoUpdateDto;
 import com.xoxo.backend.backendspringboot.models.entities.Producto;
 
 public interface IProductoService {
 
     List<Producto> listAll();
 
-    Producto save(ProductoDto productoDto);
+    Producto findById(Long id);
 
-    Producto findById(Integer id);
+    Producto save(ProductoCreateDto productoCreateDto);
+
+    Producto update(ProductoUpdateDto productoUpdateDto);
 
     void delete(Producto producto);
 
-    boolean existsById(Integer id);
+    boolean existsById(Long id);
 
 }

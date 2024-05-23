@@ -3,6 +3,7 @@ package com.xoxo.backend.backendspringboot.models.entities;
 import java.io.Serializable;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import java.util.List;
@@ -14,16 +15,15 @@ import java.util.List;
 @Builder
 @Table(name = "colecciones")
 public class Coleccion implements Serializable{
-
     @Id
     @Column(name = "id_coleccion")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idColeccion;
+    private Long idColeccion;
 
     @Column(name = "nombre_coleccion")
     private String nombreColeccion;
 
     @OneToMany(mappedBy = "coleccion")
-    @JsonBackReference
+    @JsonManagedReference
     private List<Producto> productosColeccion;
 }
