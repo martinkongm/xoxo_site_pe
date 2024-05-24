@@ -1,4 +1,4 @@
-package com.xoxo.backend.backendspringboot.models.dto;
+package com.xoxo.backend.backendspringboot.models.dto.producto;
 
 import lombok.*;
 
@@ -6,11 +6,13 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProductoCreateDto {
+public class ProductoResponseDto {
+    private Long idProducto;
     private String nombreProducto;
     private Double precioProducto;
     private Integer tamanoProducto;
     private String beneficiosProducto;
-    private Long idColeccion;
+    private String nombreColeccion;
+    private int stockProducto;
     private String imagenProducto;
 }

@@ -1,8 +1,8 @@
 package com.xoxo.backend.backendspringboot.controllers;
 
-import com.xoxo.backend.backendspringboot.models.dto.UsuarioCreateDto;
-import com.xoxo.backend.backendspringboot.models.dto.UsuarioResponseDto;
-import com.xoxo.backend.backendspringboot.models.dto.UsuarioUpdateDto;
+import com.xoxo.backend.backendspringboot.models.dto.usuario.UsuarioCreateDto;
+import com.xoxo.backend.backendspringboot.models.dto.usuario.UsuarioResponseDto;
+import com.xoxo.backend.backendspringboot.models.dto.usuario.UsuarioUpdateDto;
 import com.xoxo.backend.backendspringboot.models.entities.Usuario;
 import com.xoxo.backend.backendspringboot.models.payload.MensajeResponse;
 import com.xoxo.backend.backendspringboot.services.IUsuarioService;
@@ -12,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1")

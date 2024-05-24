@@ -1,4 +1,4 @@
-package com.xoxo.backend.backendspringboot.models.dto;
+package com.xoxo.backend.backendspringboot.models.dto.usuario;
 
 import com.xoxo.backend.backendspringboot.models.entities.Pedido;
 import com.xoxo.backend.backendspringboot.models.entities.Review;
@@ -18,7 +18,6 @@ public class UsuarioResponseDto {
     private String apellidoUsuario;
     private String correoUsuario;
     private Date fechaRegistro;
-    private String contrasenaUsuario;
     private List<Review> reviewsUsuario;
     private List<Pedido> pedidosUsuario;
 }

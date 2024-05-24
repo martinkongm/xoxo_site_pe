@@ -35,6 +35,9 @@ public class Producto implements Serializable{
     @Column(name = "imagen_producto")
     private String imagenProducto;
 
+    @Column(name = "stock_producto")
+    private int stockProducto;
+
     @ManyToOne
     @JoinColumn(name = "id_coleccion", nullable = false)
     @JsonBackReference

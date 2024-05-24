@@ -1,8 +1,7 @@
 package com.xoxo.backend.backendspringboot.services;
 
-import com.xoxo.backend.backendspringboot.models.dto.UsuarioCreateDto;
-import com.xoxo.backend.backendspringboot.models.dto.UsuarioResponseDto;
-import com.xoxo.backend.backendspringboot.models.dto.UsuarioUpdateDto;
+import com.xoxo.backend.backendspringboot.models.dto.usuario.UsuarioCreateDto;
+import com.xoxo.backend.backendspringboot.models.dto.usuario.UsuarioUpdateDto;
 import com.xoxo.backend.backendspringboot.models.entities.Usuario;
 
 import java.util.List;

@@ -2,8 +2,8 @@ package com.xoxo.backend.backendspringboot.services;
 
 import java.util.List;
 
-import com.xoxo.backend.backendspringboot.models.dto.ProductoCreateDto;
-import com.xoxo.backend.backendspringboot.models.dto.ProductoUpdateDto;
+import com.xoxo.backend.backendspringboot.models.dto.producto.ProductoCreateDto;
+import com.xoxo.backend.backendspringboot.models.dto.producto.ProductoUpdateDto;
 import com.xoxo.backend.backendspringboot.models.entities.Producto;
 
 public interface IProductoService {

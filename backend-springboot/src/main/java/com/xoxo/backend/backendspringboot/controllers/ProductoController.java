@@ -1,8 +1,8 @@
 package com.xoxo.backend.backendspringboot.controllers;
 
-import com.xoxo.backend.backendspringboot.models.dto.ProductoCreateDto;
-import com.xoxo.backend.backendspringboot.models.dto.ProductoResponseDto;
-import com.xoxo.backend.backendspringboot.models.dto.ProductoUpdateDto;
+import com.xoxo.backend.backendspringboot.models.dto.producto.ProductoCreateDto;
+import com.xoxo.backend.backendspringboot.models.dto.producto.ProductoResponseDto;
+import com.xoxo.backend.backendspringboot.models.dto.producto.ProductoUpdateDto;
 import com.xoxo.backend.backendspringboot.models.entities.Producto;
 import com.xoxo.backend.backendspringboot.models.payload.MensajeResponse;
 import com.xoxo.backend.backendspringboot.services.IProductoService;
@@ -40,6 +40,7 @@ public class ProductoController {
                         .tamanoProducto(producto.getTamanoProducto())
                         .beneficiosProducto(producto.getBeneficiosProducto())
                         .imagenProducto(producto.getImagenProducto())
+                        .stockProducto(producto.getStockProducto())
                         .nombreColeccion(producto.getColeccion().getNombreColeccion())
                         .build())
                 .toList();
@@ -65,6 +66,7 @@ public class ProductoController {
                 .tamanoProducto(producto.getTamanoProducto())
                 .beneficiosProducto(producto.getBeneficiosProducto())
                 .imagenProducto(producto.getImagenProducto())
+                .stockProducto(producto.getStockProducto())
                 .nombreColeccion(producto.getColeccion().getNombreColeccion())
                 .build();
         return new ResponseEntity<>(MensajeResponse.builder()
@@ -84,6 +86,7 @@ public class ProductoController {
                     .tamanoProducto(productoSave.getTamanoProducto())
                     .beneficiosProducto(productoSave.getBeneficiosProducto())
                     .imagenProducto(productoSave.getImagenProducto())
+                    .stockProducto(productoSave.getStockProducto())
                     .nombreColeccion(productoSave.getColeccion().getNombreColeccion())
                     .build();
             return new ResponseEntity<>(MensajeResponse.builder()
@@ -116,6 +119,7 @@ public class ProductoController {
                     .tamanoProducto(productoUpdate.getTamanoProducto())
                     .beneficiosProducto(productoUpdate.getBeneficiosProducto())
                     .imagenProducto(productoUpdate.getImagenProducto())
+                    .stockProducto(productoUpdate.getStockProducto())
                     .nombreColeccion(productoUpdate.getColeccion().getNombreColeccion())
                     .build();
             return new ResponseEntity<>(MensajeResponse.builder()

@@ -1,9 +1,8 @@
 package com.xoxo.backend.backendspringboot.services.impl;
 
-import com.xoxo.backend.backendspringboot.models.dao.UsuarioDao;
-import com.xoxo.backend.backendspringboot.models.dto.UsuarioCreateDto;
-import com.xoxo.backend.backendspringboot.models.dto.UsuarioResponseDto;
-import com.xoxo.backend.backendspringboot.models.dto.UsuarioUpdateDto;
+import com.xoxo.backend.backendspringboot.models.repository.UsuarioRepository;
+import com.xoxo.backend.backendspringboot.models.dto.usuario.UsuarioCreateDto;
+import com.xoxo.backend.backendspringboot.models.dto.usuario.UsuarioUpdateDto;
 import com.xoxo.backend.backendspringboot.models.entities.Usuario;
 import com.xoxo.backend.backendspringboot.services.IUsuarioService;
 import org.springframework.stereotype.Service;
@@ -14,22 +13,22 @@ import java.util.List;
 @Service
 public class UsuarioServiceImpl implements IUsuarioService {
 
-    private UsuarioDao usuarioDao;
+    private UsuarioRepository usuarioRepository;
 
-    public UsuarioServiceImpl(UsuarioDao usuarioDao) {
-        this.usuarioDao = usuarioDao;
+    public UsuarioServiceImpl(UsuarioRepository usuarioRepository) {
+        this.usuarioRepository = usuarioRepository;
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<Usuario> listAll() {
-        return (List<Usuario>) usuarioDao.findAll();
+        return (List<Usuario>) usuarioRepository.findAll();
     }
 
     @Override
     @Transactional(readOnly = true)
     public Usuario findById(Long id) {
-        return usuarioDao.findById(id).orElse(null);
+        return usuarioRepository.findById(id).orElse(null);
     }
 
     @Override
@@ -42,31 +41,31 @@ public class UsuarioServiceImpl implements IUsuarioService {
                 .fechaRegistro(usuarioCreateDto.getFechaRegistro())
                 .contrasenaUsuario(usuarioCreateDto.getContrasenaUsuario())
                 .build();
-        return usuarioDao.save(usuario);
+        return usuarioRepository.save(usuario);
     }
 
     @Override
     @Transactional
     public Usuario update(UsuarioUpdateDto usuarioUpdateDto) {
-        Usuario usuario = usuarioDao.findById(usuarioUpdateDto.getIdUsuario()).orElseThrow();
+        Usuario usuario = usuarioRepository.findById(usuarioUpdateDto.getIdUsuario()).orElseThrow();
 
         usuario.setNombreUsuario(usuarioUpdateDto.getNombreUsuario());
         usuario.setApellidoUsuario(usuarioUpdateDto.getApellidoUsuario());
         usuario.setCorreoUsuario(usuarioUpdateDto.getCorreoUsuario());
         usuario.setFechaRegistro(usuarioUpdateDto.getFechaRegistro());
 
-        return usuarioDao.save(usuario);
+        return usuarioRepository.save(usuario);
     }
 
     @Override
     @Transactional
     public void delete(Usuario usuario) {
-        usuarioDao.delete(usuario);
+        usuarioRepository.delete(usuario);
     }
 
     @Override
     @Transactional(readOnly = true)
     public boolean existsById(Long id) {
-        return usuarioDao.existsById(id);
+        return usuarioRepository.existsById(id);
     }
 }

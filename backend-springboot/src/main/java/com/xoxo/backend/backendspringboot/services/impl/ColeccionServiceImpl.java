@@ -1,6 +1,6 @@
 package com.xoxo.backend.backendspringboot.services.impl;
 
-import com.xoxo.backend.backendspringboot.models.dao.ColeccionDao;
+import com.xoxo.backend.backendspringboot.models.repository.ColeccionRepository;
 import com.xoxo.backend.backendspringboot.models.dto.ColeccionDto;
 import com.xoxo.backend.backendspringboot.models.entities.Coleccion;
 import com.xoxo.backend.backendspringboot.services.IColeccionService;
@@ -12,10 +12,10 @@ import java.util.List;
 @Service
 public class ColeccionServiceImpl implements IColeccionService {
 
-    private ColeccionDao coleccionDao;
+    private ColeccionRepository coleccionDao;
 
-    public ColeccionServiceImpl(ColeccionDao coleccionDao) {
-        this.coleccionDao = coleccionDao;
+    public ColeccionServiceImpl(ColeccionRepository coleccionRepository) {
+        this.coleccionDao = coleccionRepository;
     }
 
     @Override

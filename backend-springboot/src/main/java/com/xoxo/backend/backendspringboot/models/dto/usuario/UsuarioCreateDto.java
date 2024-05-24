@@ -1,4 +1,4 @@
-package com.xoxo.backend.backendspringboot.models.dto;
+package com.xoxo.backend.backendspringboot.models.dto.usuario;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,8 +11,7 @@ import java.util.Date;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UsuarioUpdateDto {
-    private Long idUsuario;
+public class UsuarioCreateDto {
     private String nombreUsuario;
     private String apellidoUsuario;
     private String correoUsuario;
