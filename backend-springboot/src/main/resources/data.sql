@@ -24,8 +24,8 @@ VALUES ('Lolita', 'Souza', '123', 'lolita@correo.com', current_date());
 INSERT INTO usuarios(nombre_usuario, apellido_usuario, contrasena_usuario, correo_usuario, fecha_registro)
 VALUES ('Carmen', 'Da Silva', 'hola112', 'camuchita@correo.com', current_date());
 INSERT INTO usuarios(nombre_usuario, apellido_usuario, contrasena_usuario, correo_usuario, fecha_registro)
-VALUES ('Alma', 'Gozo', '123aa', 'alma@correo.com', current_date());
+VALUES ('Alma', 'Silva', '123aa', 'alma@correo.com', current_date());
 INSERT INTO usuarios(nombre_usuario, apellido_usuario, contrasena_usuario, correo_usuario, fecha_registro)
-VALUES ('Mónica', 'Romero', 'kemiras', 'monica@correo.com', current_date());
+VALUES ('Suzy', 'Romero', 'kemiras', 'lula@correo.com', current_date());
 
 --REVIEWS
