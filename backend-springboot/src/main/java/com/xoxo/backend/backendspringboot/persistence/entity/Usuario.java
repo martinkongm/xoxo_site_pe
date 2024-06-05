@@ -8,10 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Data
 @AllArgsConstructor
@@ -37,7 +34,7 @@ public class Usuario implements Serializable {
     @Column(name = "fecha_registro", nullable = false)
     private Date fechaRegistro;
 
-    @Column(name = "contrasena_usuario", length = 12, nullable = false)
+    @Column(name = "contrasena_usuario", length = 100, nullable = false)
     @JsonIgnore
     private String contrasenaUsuario;
 
@@ -61,9 +58,20 @@ public class Usuario implements Serializable {
     )
     private Set<Rol> roles = new HashSet<>();
 
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "usuarios_direcciones",
+            joinColumns = @JoinColumn(name = "id_usuario"),
+            inverseJoinColumns = @JoinColumn(name = "id_direccion")
+    )
+    private List<Direccion> direcciones = new ArrayList<>();
+
     @OneToMany(mappedBy = "reviewUsuario", cascade = CascadeType.ALL)
     private List<Review> reviewsUsuario;
 
     @OneToMany(mappedBy = "usuarioPedido", cascade = CascadeType.ALL)
     private List<Pedido> pedidosUsuario;
+
+    @OneToMany(mappedBy = "usuario")
+    private List<Carrito> carritoUsuario;
 }

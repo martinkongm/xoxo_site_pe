@@ -34,22 +34,12 @@ public class Pedido implements Serializable{
     @Column(name = "email_cliente_pedido")
     private String emailCliente;
 
+    /*
     @Column(name = "pais_cliente_pedido")
     private String pais;
+    */
 
-    @Column(name = "region_cliente_pedido")
-    private String region;
-
-    @Column(name = "ciudad_cliente_pedido")
-    private String ciudad;
-
-    @Column(name = "direccion_cliente_pedido")
-    private String direccion;
-
-    @Column(name = "apartamento_cliente_pedido")
-    private byte apartamento;
-
-    @Column(name = "telefono_cliente_pedido")
+    @Column(name = "telefono_pedido")
     private String telefono;
 
     @ManyToOne
@@ -57,13 +47,26 @@ public class Pedido implements Serializable{
     @JsonBackReference
     private Usuario usuarioPedido;
 
+    @ManyToOne
+    @JoinColumn(name = "direccion_pedido")
+    private Direccion direccion;
+
+    @ManyToOne
+    @JoinColumn(name = "envio_pedido")
+    private MetodoEnvio metodoEnvio;
+
+    @ManyToOne
+    @JoinColumn(name = "estatus_pedido")
+    private EstatusPedido estatusPedido;
+
+    /*
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "pedido_producto",
             joinColumns = @JoinColumn(name = "id_pedido"),
             inverseJoinColumns = @JoinColumn(name = "id_producto")
     )
-    private List<Producto> productos;
+    private List<Producto> productos;*/
 }
 
 /*

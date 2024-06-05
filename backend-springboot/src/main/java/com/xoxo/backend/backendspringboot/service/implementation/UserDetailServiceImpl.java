@@ -22,6 +22,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -65,7 +66,7 @@ public class UserDetailServiceImpl implements UserDetailsService{
     }
 
     public AuthResponse loginUser(AuthLoginRequest authLoginRequest) {
-        String username = authLoginRequest.username();
+        String username = authLoginRequest.email();
         String password = authLoginRequest.password();
 
         Authentication authentication = this.authenticate(username, password);
@@ -92,7 +93,9 @@ public class UserDetailServiceImpl implements UserDetailsService{
     }
 
     public AuthResponse createUser(AuthCreateUserRequest authCreateUserRequest) {
-        String username = authCreateUserRequest.username();
+        String nombre = authCreateUserRequest.nombre();
+        String apellido = authCreateUserRequest.apellido();
+        String correo = authCreateUserRequest.correo();
         String password = authCreateUserRequest.password();
         List<String> roleRequest = authCreateUserRequest.roleRequest().roleListName();
         Set<Rol> roleEntitySet = rolRepository.findRolesByRolEnumIn(roleRequest).stream().collect(Collectors.toSet());
@@ -102,8 +105,11 @@ public class UserDetailServiceImpl implements UserDetailsService{
         }
 
         Usuario userEntity = Usuario.builder()
-                .nombre(username)
+                .nombre(nombre)
+                .apellido(apellido)
+                .correo(correo)
                 .contrasenaUsuario(passwordEncoder.encode(password))
+                .fechaRegistro(new Date())
                 .roles(roleEntitySet)
                 .isEnabled(true)
                 .accountNoLocked(true)
@@ -122,11 +128,11 @@ public class UserDetailServiceImpl implements UserDetailsService{
                 .flatMap(rol -> rol.getListaPermisos().stream())
                 .forEach(permiso -> authorityList.add(new SimpleGrantedAuthority(permiso.getNombre())));
 
-        Authentication authentication = new UsernamePasswordAuthenticationToken(userCreated.getNombre(), userCreated.getContrasenaUsuario(), authorityList);
+        Authentication authentication = new UsernamePasswordAuthenticationToken(userCreated.getCorreo(), userCreated.getContrasenaUsuario(), authorityList);
 
         String accessToken = jwtUtils.createToken(authentication);
 
-        AuthResponse authResponse = new AuthResponse(userCreated.getNombre(), "User created successfully.", accessToken, true);
+        AuthResponse authResponse = new AuthResponse(userCreated.getNombre(), "Usuario creado correctamente.", accessToken, true);
         return authResponse;
     }
 

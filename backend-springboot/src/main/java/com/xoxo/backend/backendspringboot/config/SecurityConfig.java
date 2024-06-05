@@ -24,7 +24,7 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity
+@EnableMethodSecurity //Permite trabajar Spring Security con anotaciones
 public class SecurityConfig {
 
     @Autowired
@@ -39,6 +39,9 @@ public class SecurityConfig {
                 .authorizeHttpRequests(http -> {
                     //Configurar los endpoints públicos
                     http.requestMatchers(HttpMethod.GET, "/api/v1/**").permitAll();
+                    http.requestMatchers(HttpMethod.POST, "/api/v1/**").permitAll();
+                    http.requestMatchers(HttpMethod.PUT, "/api/v1/**").permitAll();
+                    http.requestMatchers(HttpMethod.DELETE, "/api/v1/**").permitAll();
                     http.requestMatchers(HttpMethod.POST, "/auth/**").permitAll();
 
                     //Configurar los endpoints privados
