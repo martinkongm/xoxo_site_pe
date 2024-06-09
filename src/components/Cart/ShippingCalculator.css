@@ -1,0 +1,53 @@
+.shipping-calculator {
+    display: flex;
+    background-color: #FADAE7;
+    padding: 20px;
+    border-radius: 10px;
+  }
+  
+  .form-section {
+    flex: 1;
+    margin-right: 20px;
+  }
+  
+  .summary-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form-group {
+    margin-bottom: 15px; /* Aumentado el espacio entre los elementos del formulario */
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .form-group input {
+    width: 100%;
+    padding: 8px; /* Ajustado el padding */
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  
+  .summary-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  
+  .summary-item .label {
+    font-weight: bold;
+  }
+  
+  .summary-item .value {
+    text-align: right;
+  }
+  
+  button {
+    width: 60%; /* Ajustado el ancho de los botones */
+    margin-top: 10px; /* Agregado margen superior a los botones */
+  }
+  
