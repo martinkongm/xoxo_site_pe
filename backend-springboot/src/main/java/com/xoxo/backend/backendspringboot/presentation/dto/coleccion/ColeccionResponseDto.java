@@ -17,6 +17,6 @@ public class ColeccionDto implements Serializable{
 
     private String nombreColeccion;
 
-    private List<Producto> productosColeccion;
+    private List<String> productosColeccion;
 
 }

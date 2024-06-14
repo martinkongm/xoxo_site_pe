@@ -12,11 +12,15 @@ import lombok.NoArgsConstructor;
 @Entity
 @Builder
 @Table(name = "detalles_carrito")
-public class DetalleCarrito {
+public class DetallesCarrito {
     @Id
-    @Column(name = "id_detalles_carrito")
+    @Column(name = "id_detalles")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    private int cantidad;
+
+    private double precioTotal;
 
     @ManyToOne
     @JoinColumn(name = "id_carrito")
