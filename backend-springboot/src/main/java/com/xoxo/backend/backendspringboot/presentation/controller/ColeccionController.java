@@ -1,7 +1,10 @@
 package com.xoxo.backend.backendspringboot.presentation.controller;
 
-import com.xoxo.backend.backendspringboot.presentation.dto.coleccion.ColeccionDto;
+import com.xoxo.backend.backendspringboot.persistence.entity.Producto;
+import com.xoxo.backend.backendspringboot.presentation.dto.coleccion.ColeccionCreateDto;
+import com.xoxo.backend.backendspringboot.presentation.dto.coleccion.ColeccionResponseDto;
 import com.xoxo.backend.backendspringboot.persistence.entity.Coleccion;
+import com.xoxo.backend.backendspringboot.presentation.dto.coleccion.ColeccionUpdateDto;
 import com.xoxo.backend.backendspringboot.presentation.payload.MensajeResponse;
 import com.xoxo.backend.backendspringboot.service.interfaces.ColeccionService;
 import org.springframework.dao.DataAccessException;
@@ -15,7 +18,7 @@ import java.util.List;
 @RequestMapping("/api/v1")
 public class ColeccionController {
 
-    private ColeccionService coleccionService;
+    private final ColeccionService coleccionService;
 
     public ColeccionController(ColeccionService coleccionService) {
         this.coleccionService = coleccionService;
@@ -23,16 +26,20 @@ public class ColeccionController {
 
     @GetMapping("/colecciones")
     public ResponseEntity<?> showAll() {
-        List<Coleccion> getList = coleccionService.listAll();
-        if (getList == null) {
+        List<Coleccion> lista = coleccionService.listAll();
+        if (lista == null) {
             return new ResponseEntity<>(MensajeResponse.builder()
                     .mensaje("No existen registros.")
                     .object(null)
                     .build(), HttpStatus.OK);
         }
+        List<ColeccionResponseDto> response = lista.stream()
+                .map(c -> {
+                    return new ColeccionResponseDto(c.getIdColeccion(), c.getNombreColeccion(), c.getProductosColeccion().stream().map(Producto::getNombreProducto).toList());
+                }).toList();
         return new ResponseEntity<>(MensajeResponse.builder()
                 .mensaje("Listando registros.")
-                .object(getList)
+                .object(response)
                 .build(), HttpStatus.OK);
     }
 
@@ -47,28 +54,28 @@ public class ColeccionController {
         }
         return new ResponseEntity<>(MensajeResponse.builder()
                 .mensaje("Consulta exitosa.")
-                .object(ColeccionDto.builder()
+                .object(ColeccionResponseDto.builder()
                         .idColeccion(coleccion.getIdColeccion())
                         .nombreColeccion(coleccion.getNombreColeccion())
-                        .productosColeccion(coleccion.getProductosColeccion())
+                        .productosColeccion(coleccion.getProductosColeccion().stream().map(Producto::getNombreProducto).toList())
                         .build())
                 .build(), HttpStatus.OK);
     }
 
     // Los recursos que se crean siempre son de tipo POST
     @PostMapping("/coleccion")
-    public ResponseEntity<?> create(@RequestBody ColeccionDto coleccionDto) {
+    public ResponseEntity<?> create(@RequestBody ColeccionCreateDto coleccionCreateDto) {
         Coleccion coleccionSave;
         try {
-            coleccionSave = coleccionService.save(coleccionDto);
-            coleccionDto = ColeccionDto.builder()
+            coleccionSave = coleccionService.save(coleccionCreateDto);
+            ColeccionResponseDto response = ColeccionResponseDto.builder()
                     .idColeccion(coleccionSave.getIdColeccion())
                     .nombreColeccion(coleccionSave.getNombreColeccion())
-                    .productosColeccion(coleccionSave.getProductosColeccion())
+                    .productosColeccion(coleccionSave.getProductosColeccion().stream().map(Producto::getNombreProducto).toList())
                     .build();
             return new ResponseEntity<>(MensajeResponse.builder()
                     .mensaje("Guardado correctamente")
-                    .object(coleccionDto)
+                    .object(response)
                     .build(), HttpStatus.CREATED);
         } catch (DataAccessException e) {
             return new ResponseEntity<>(MensajeResponse.builder()
@@ -79,20 +86,20 @@ public class ColeccionController {
     }
 
     @PutMapping("/coleccion/{id}")
-    public ResponseEntity<?> update(@RequestBody ColeccionDto coleccionDto, @PathVariable Long id) {
-        Coleccion coleccionUpdate;
+    public ResponseEntity<?> update(@RequestBody ColeccionUpdateDto coleccionUpdateDto, @PathVariable Long id) {
         try {
+            Coleccion coleccionUpdate = new Coleccion();
             if (coleccionService.existsById(id)) {
-                coleccionDto.setIdColeccion(id);
-                coleccionUpdate = coleccionService.save(coleccionDto);
-                coleccionDto = ColeccionDto.builder()
+                coleccionUpdate.setIdColeccion(id);
+                coleccionUpdate = coleccionService.update(coleccionUpdateDto);
+                ColeccionResponseDto response = ColeccionResponseDto.builder()
                         .idColeccion(coleccionUpdate.getIdColeccion())
                         .nombreColeccion(coleccionUpdate.getNombreColeccion())
-                        .productosColeccion(coleccionUpdate.getProductosColeccion())
+                        .productosColeccion(coleccionUpdate.getProductosColeccion().stream().map(Producto::getNombreProducto).toList())
                         .build();
                 return new ResponseEntity<>(MensajeResponse.builder()
                         .mensaje("Modificado correctamente")
-                        .object(coleccionDto)
+                        .object(response)
                         .build(), HttpStatus.CREATED);
             } else {
                 return new ResponseEntity<>(MensajeResponse.builder()

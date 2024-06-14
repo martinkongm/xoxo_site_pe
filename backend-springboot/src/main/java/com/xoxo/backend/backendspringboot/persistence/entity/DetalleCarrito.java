@@ -11,8 +11,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Builder
-@Table(name = "detalles_carrito")
-public class DetallesCarrito {
+@Table(name = "detalle_carrito")
+public class DetalleCarrito {
     @Id
     @Column(name = "id_detalles")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

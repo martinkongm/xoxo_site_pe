@@ -25,16 +25,15 @@ public class Pedido implements Serializable{
     @Column(name = "total_pedido")
     private Double totalPedido;
 
+    @Column(name = "email_cliente")
+    private String emailCliente;
+    /*
     @Column(name = "nombres_cliente_pedido")
     private String nombresCliente;
 
     @Column(name = "apellidos_cliente_pedido")
     private String apellidosCliente;
 
-    @Column(name = "email_cliente_pedido")
-    private String emailCliente;
-
-    /*
     @Column(name = "pais_cliente_pedido")
     private String pais;
     */

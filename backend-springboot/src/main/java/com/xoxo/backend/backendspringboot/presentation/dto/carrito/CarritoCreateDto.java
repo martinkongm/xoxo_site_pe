@@ -11,7 +11,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CarritoDto {
-    private Long id;
+public class CarritoCreateDto {
     private Long usuarioId;
+    private List<DetalleCreateDto> detalles;
 }

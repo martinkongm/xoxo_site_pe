@@ -1,6 +1,8 @@
 package com.xoxo.backend.backendspringboot.service.implementation;
 
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import com.xoxo.backend.backendspringboot.persistence.repository.ColeccionRepository;
 import com.xoxo.backend.backendspringboot.presentation.dto.producto.ProductoCreateDto;
@@ -29,6 +31,8 @@ public class ProductoServiceImpl implements ProductoService {
     public List<Producto> listAll() {
         return (List<Producto>) productoRepository.findAll();
     }
+
+
 
     @Override
     @Transactional(readOnly = true)
@@ -82,4 +86,13 @@ public class ProductoServiceImpl implements ProductoService {
     public boolean existsById(Long id) {
         return productoRepository.existsById(id);
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Producto> findProductosByColeccion(Coleccion coleccion) {
+        Coleccion miColeccion = coleccionRepository.getColeccionByName(coleccion.getNombreColeccion());
+        return productoRepository.findProductosByColeccion(miColeccion);
+    }
+
+
 }

@@ -3,15 +3,13 @@ package com.xoxo.backend.backendspringboot.presentation.dto.coleccion;
 import java.io.Serializable;
 import java.util.List;
 
-import com.xoxo.backend.backendspringboot.persistence.entity.Producto;
-import lombok.Builder;
-import lombok.Data;
-import lombok.ToString;
+import lombok.*;
 
 @Data
-@ToString
 @Builder
-public class ColeccionDto implements Serializable{
+@AllArgsConstructor
+@NoArgsConstructor
+public class ColeccionResponseDto implements Serializable{
 
     private Long idColeccion;
 

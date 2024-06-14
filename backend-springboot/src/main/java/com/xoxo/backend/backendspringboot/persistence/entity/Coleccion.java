@@ -19,7 +19,7 @@ public class Coleccion implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idColeccion;
 
-    @Column(name = "nombre_coleccion")
+    @Column(name = "nombre_coleccion", unique = true)
     private String nombreColeccion;
 
     @OneToMany(mappedBy = "coleccion")

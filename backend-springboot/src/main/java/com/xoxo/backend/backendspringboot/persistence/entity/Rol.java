@@ -3,6 +3,7 @@ package com.xoxo.backend.backendspringboot.persistence.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,7 +14,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Table(name = "roles")
-public class Rol {
+public class Rol implements Serializable {
     @Id
     @Column(name = "id_rol")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

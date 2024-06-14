@@ -6,13 +6,15 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Builder
 @Table(name = "orden_compra")
-public class OrdenCompra {
+public class OrdenCompra implements Serializable {
     @Id
     @Column(name = "id_orden")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,6 +25,4 @@ public class OrdenCompra {
 
     @Column(nullable = false)
     private Double precio;
-
-
 }

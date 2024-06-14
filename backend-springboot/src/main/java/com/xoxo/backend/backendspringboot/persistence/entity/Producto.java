@@ -44,13 +44,4 @@ public class Producto implements Serializable{
 
     @OneToMany(mappedBy = "reviewProducto", cascade = CascadeType.ALL)
     private List<Review> reviewsProducto;
-
-    @OneToMany(mappedBy = "producto")
-    private List<DetalleCarrito> detallesCarrito;
-
-
-
-    /*
-    @ManyToMany(mappedBy = "productos")
-    private List<Pedido> pedidos;*/
 }

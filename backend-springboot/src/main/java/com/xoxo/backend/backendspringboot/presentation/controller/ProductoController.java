@@ -1,10 +1,12 @@
 package com.xoxo.backend.backendspringboot.presentation.controller;
 
+import com.xoxo.backend.backendspringboot.persistence.entity.Coleccion;
 import com.xoxo.backend.backendspringboot.presentation.dto.producto.ProductoCreateDto;
 import com.xoxo.backend.backendspringboot.presentation.dto.producto.ProductoResponseDto;
 import com.xoxo.backend.backendspringboot.presentation.dto.producto.ProductoUpdateDto;
 import com.xoxo.backend.backendspringboot.persistence.entity.Producto;
 import com.xoxo.backend.backendspringboot.presentation.payload.MensajeResponse;
+import com.xoxo.backend.backendspringboot.service.interfaces.ColeccionService;
 import com.xoxo.backend.backendspringboot.service.interfaces.ProductoService;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
@@ -12,15 +14,18 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1")
 public class ProductoController {
 
     private final ProductoService productoService;
+    private final ColeccionService coleccionService;
 
-    public ProductoController(ProductoService productoService) {
+    public ProductoController(ProductoService productoService, ColeccionService coleccionService) {
         this.productoService = productoService;
+        this.coleccionService = coleccionService;
     }
 
     @GetMapping("/productos")
@@ -30,7 +35,7 @@ public class ProductoController {
             return new ResponseEntity<>(MensajeResponse.builder()
                     .mensaje("No existen registros.")
                     .object(null)
-                    .build(), HttpStatus.OK);
+                    .build(), HttpStatus.NOT_FOUND);
         }
         List<ProductoResponseDto> response = productos.stream()
                 .map(producto -> ProductoResponseDto.builder()
@@ -74,6 +79,36 @@ public class ProductoController {
                 .object(response)
                 .build(), HttpStatus.OK);
     }
+
+    @GetMapping("/productos/{coleccion}")
+    public ResponseEntity<?> showByCollecion(@PathVariable String coleccion) {
+        Coleccion miColeccion = coleccionService.getColeccionByName(coleccion);
+        if (miColeccion == null) {
+            return new ResponseEntity<>(MensajeResponse.builder()
+                    .mensaje("La colección no existe.")
+                    .object(null)
+                    .build(), HttpStatus.NOT_FOUND);
+        }
+        List<Producto> productos = productoService.findProductosByColeccion(miColeccion);
+
+        List<ProductoResponseDto> response = productos.stream()
+                .map(producto -> ProductoResponseDto.builder()
+                        .idProducto(producto.getIdProducto())
+                        .nombreProducto(producto.getNombreProducto())
+                        .precioProducto(producto.getPrecioProducto())
+                        .tamanoProducto(producto.getTamanoProducto())
+                        .beneficiosProducto(producto.getBeneficiosProducto())
+                        .imagenProducto(producto.getImagenProducto())
+                        .stockProducto(producto.getStockProducto())
+                        .nombreColeccion(producto.getColeccion().getNombreColeccion())
+                        .build())
+                .toList();
+        return new ResponseEntity<>(MensajeResponse.builder()
+                .mensaje("Listando registros.")
+                .object(response)
+                .build(), HttpStatus.OK);
+    }
+
 
     @PostMapping("/producto")
     public ResponseEntity<?> create(@RequestBody ProductoCreateDto productoCreateDto) {

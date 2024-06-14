@@ -1,6 +1,5 @@
 package com.xoxo.backend.backendspringboot.presentation.dto.carrito;
 
-import com.xoxo.backend.backendspringboot.persistence.entity.Producto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,10 +11,8 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CarritoReponseDto {
+public class CarritoResponseDto {
     private Long id;
-    private String correoUsuario;
-    private int cantidad;
-    private double precioTotal;
-    private List<Producto> productos;
+    private String usuario;
+    private List<DetalleResponseDto> detalles;
 }

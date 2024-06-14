@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class DetalleCarritoDto {
+public class DetalleResponseDto {
     private Long id;
     private int cantidad;
     private double precioTotal;

@@ -10,7 +10,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -34,11 +33,14 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
-                .httpBasic(Customizer.withDefaults()) //Se usa cuando el login se realiza únicamente con USUARIO - CONTRASEÑA
+                //.httpBasic(Customizer.withDefaults()) //Se usa cuando el login se realiza únicamente con USUARIO - CONTRASEÑA
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(http -> {
                     //Configurar los endpoints públicos
                     http.requestMatchers(HttpMethod.GET, "/api/v1/**").permitAll();
+                    http.requestMatchers(HttpMethod.GET, "/img/coleccion/body-splash/**").permitAll();
+                    http.requestMatchers(HttpMethod.GET, "/img/coleccion/exfoliante/**").permitAll();
+                    http.requestMatchers(HttpMethod.GET, "/img/coleccion/manteca/**").permitAll();
                     http.requestMatchers(HttpMethod.POST, "/api/v1/**").permitAll();
                     http.requestMatchers(HttpMethod.PUT, "/api/v1/**").permitAll();
                     http.requestMatchers(HttpMethod.DELETE, "/api/v1/**").permitAll();
@@ -52,7 +54,7 @@ public class SecurityConfig {
                     http.requestMatchers(HttpMethod.GET, "/methods/get").hasAnyAuthority("READ");
 
                     //Configurar el resto de endpoints - NO ESPECIFICADOS EN LA PARTE DE ARRIBA
-                    //http.anyRequest().denyAll();
+                    http.anyRequest().permitAll();//.denyAll();
                 })
                 .addFilterBefore(new JwtTokenValidator(jwtUtils), BasicAuthenticationFilter.class)
                 .build();
