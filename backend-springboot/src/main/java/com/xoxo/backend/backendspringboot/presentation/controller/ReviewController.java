@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1")
+@CrossOrigin("*")
 public class ReviewController {
 
     private final ReviewService reviewService;
