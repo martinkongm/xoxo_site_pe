@@ -28,7 +28,7 @@ public class Usuario implements Serializable {
     @Column(name = "apellido_usuario", nullable = false)
     private String apellido;
 
-    @Column(name = "correo_usuario", nullable = false)
+    @Column(name = "correo_usuario", nullable = false, unique = true)
     private String correo;
 
     @Column(name = "fecha_registro", nullable = false)
@@ -72,6 +72,7 @@ public class Usuario implements Serializable {
     @OneToMany(mappedBy = "usuarioPedido", cascade = CascadeType.ALL)
     private List<Pedido> pedidosUsuario;
 
+    /*
     @OneToMany(mappedBy = "usuario")
-    private List<Carrito> carritoUsuario;
+    private List<Carrito> carritoUsuario;*/
 }

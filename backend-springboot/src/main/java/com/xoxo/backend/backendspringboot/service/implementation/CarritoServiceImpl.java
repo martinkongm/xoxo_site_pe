@@ -45,13 +45,8 @@ public class CarritoServiceImpl {
 
     @Transactional
     public Carrito createCarrito(CarritoCreateDto carritoCreateDto) {
-        Optional<Usuario> usuarioOptional = usuarioRepository.findById(carritoCreateDto.getUsuarioId());
-        Usuario usuario = null;
-        if (usuarioOptional.isPresent()) {
-            usuario = usuarioOptional.get();
-        }
         Carrito carrito = Carrito.builder()
-                .usuario(usuario)
+                .emailComprador(carritoCreateDto.getEmailComprador())
                 .detallesCarritos(null)
                 .build();
         return carritoRepository.save(carrito);
@@ -60,13 +55,13 @@ public class CarritoServiceImpl {
 
     @Transactional
     public Carrito updateCarrito(Long id, CarritoUpdateDto carritoDetails) {
-        Optional<Usuario> usuarioOptional = usuarioRepository.findById(carritoDetails.getIdUsuario());
-        Usuario usuario = usuarioOptional.orElse(null);
+        //Optional<Usuario> usuarioOptional = usuarioRepository.findById(carritoDetails.getIdUsuario());
+        //Usuario usuario = usuarioOptional.orElse(null);
 
         Carrito carrito = carritoRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Carrito not found for this id :: " + id));
 
-        carrito.setUsuario(usuario);
+        //carrito.setUsuario(usuario);
 
         // Obtener los detalles existentes
         List<DetalleCarrito> existingDetalles = carrito.getDetallesCarritos();

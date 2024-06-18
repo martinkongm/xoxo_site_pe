@@ -32,7 +32,6 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'tienda.apps.TiendaConfig',
-    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -77,14 +76,11 @@ WSGI_APPLICATION = 'xoxo_peru.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'db_springboot_dev',
-        'USER': 'root',
-        'PASSWORD': 'sasa',
-        'HOST': 'localhost',  # O la dirección IP del servidor de la base de datos
-        'PORT': '3306',       # El puerto de MySQL, generalmente es 3306
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
 
 
 # Password validation

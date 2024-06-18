@@ -32,8 +32,6 @@ public class ProductoServiceImpl implements ProductoService {
         return (List<Producto>) productoRepository.findAll();
     }
 
-
-
     @Override
     @Transactional(readOnly = true)
     public Producto findById(Long id) {
@@ -74,7 +72,6 @@ public class ProductoServiceImpl implements ProductoService {
         return productoRepository.save(producto);
     }
 
-
     @Override
     @Transactional
     public void delete(Producto producto) {
@@ -93,6 +90,4 @@ public class ProductoServiceImpl implements ProductoService {
         Coleccion miColeccion = coleccionRepository.getColeccionByName(coleccion.getNombreColeccion());
         return productoRepository.findProductosByColeccion(miColeccion);
     }
-
-
 }

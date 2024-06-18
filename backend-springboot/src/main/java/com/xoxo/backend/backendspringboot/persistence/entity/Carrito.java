@@ -23,9 +23,16 @@ public class Carrito implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "total_carrito")
+    private double totalCarrito;
+
+    @Column(name = "email_comprador")
+    private String emailComprador;
+    /*
     @ManyToOne
-    @JoinColumn(name = "id_usuario") //Puede ser null
+    @JoinColumn(name = "id_usuario")
     private Usuario usuario;
+    */
 
     @OneToMany(mappedBy = "carrito")
     private List<DetalleCarrito> detallesCarritos;

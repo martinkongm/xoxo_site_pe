@@ -28,7 +28,7 @@ public class CarritoController {
     @GetMapping("/carritos")
     public ResponseEntity<?> getAllCarritos() {
         List<CarritoResponseDto> carritos = carritoService.getAllCarritos().stream().map(c -> new CarritoResponseDto(
-                c.getId(), c.getUsuario().getCorreo(), c.getDetallesCarritos().stream().map(d -> new DetalleResponseDto(d.getId(), d.getCantidad(), d.getPrecioTotal(), d.getProducto().getNombreProducto())).toList()
+                c.getId(), c.getEmailComprador(), c.getDetallesCarritos().stream().map(d -> new DetalleResponseDto(d.getId(), d.getCantidad(), d.getPrecioTotal(), d.getProducto().getNombreProducto())).toList()
         )).toList();
         if (carritos.isEmpty()) {
             return new ResponseEntity<>(MensajeResponse.builder()
@@ -54,7 +54,7 @@ public class CarritoController {
         Carrito carrito = carritoOpt.get();
         CarritoResponseDto response = CarritoResponseDto.builder()
                 .id(carrito.getId())
-                .usuario(carrito.getUsuario().getCorreo())
+                .emailComprador(carrito.getEmailComprador())
                 .detalles(carrito.getDetallesCarritos().stream().map(
                         d -> new DetalleResponseDto(
                                 d.getId(), d.getCantidad(), d.getPrecioTotal(), d.getProducto().getNombreProducto()
@@ -72,7 +72,8 @@ public class CarritoController {
             Carrito carritoSave = carritoService.createCarrito(carrito);
             CarritoResponseDto response = CarritoResponseDto.builder()
                     .id(carritoSave.getId())
-                    .usuario(carritoSave.getUsuario().getCorreo())
+                    .emailComprador(carritoSave.getEmailComprador())
+                    //.usuario(carritoSave.getUsuario().getCorreo())
                     .detalles(null)
                     .build();
             return new ResponseEntity<>(MensajeResponse.builder()
@@ -97,7 +98,8 @@ public class CarritoController {
                 Carrito updatedCarrito = carritoService.updateCarrito(id, carritoDetails);
                 CarritoResponseDto response = CarritoResponseDto.builder()
                         .id(updatedCarrito.getId())
-                        .usuario(updatedCarrito.getUsuario() != null ? updatedCarrito.getUsuario().getCorreo() : null)
+                        .emailComprador(updatedCarrito.getEmailComprador())
+                        //.usuario(updatedCarrito.getUsuario() != null ? updatedCarrito.getUsuario().getCorreo() : null)
                         .detalles(updatedCarrito.getDetallesCarritos().stream().map(d ->
                                 new DetalleResponseDto(d.getId(), d.getCantidad(), d.getPrecioTotal(), d.getProducto().getNombreProducto())
                         ).collect(Collectors.toList()))

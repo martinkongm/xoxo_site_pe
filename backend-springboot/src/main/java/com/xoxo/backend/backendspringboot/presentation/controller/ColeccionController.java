@@ -35,9 +35,7 @@ public class ColeccionController {
                     .build(), HttpStatus.OK);
         }
         List<ColeccionResponseDto> response = lista.stream()
-                .map(c -> {
-                    return new ColeccionResponseDto(c.getIdColeccion(), c.getNombreColeccion(), c.getProductosColeccion().stream().map(Producto::getNombreProducto).toList());
-                }).toList();
+                .map(c -> new ColeccionResponseDto(c.getIdColeccion(), c.getNombreColeccion(), c.getProductosColeccion().stream().map(Producto::getNombreProducto).toList())).toList();
         return new ResponseEntity<>(MensajeResponse.builder()
                 .mensaje("Listando registros.")
                 .object(response)
@@ -72,7 +70,6 @@ public class ColeccionController {
             ColeccionResponseDto response = ColeccionResponseDto.builder()
                     .idColeccion(coleccionSave.getIdColeccion())
                     .nombreColeccion(coleccionSave.getNombreColeccion())
-                    .productosColeccion(coleccionSave.getProductosColeccion().stream().map(Producto::getNombreProducto).toList())
                     .build();
             return new ResponseEntity<>(MensajeResponse.builder()
                     .mensaje("Guardado correctamente")
@@ -123,8 +120,13 @@ public class ColeccionController {
     public ResponseEntity<?> delete(@PathVariable Long id) {
         try {
             Coleccion coleccionDelete = coleccionService.findById(id);
+            ColeccionResponseDto response = ColeccionResponseDto.builder()
+                    .idColeccion(coleccionDelete.getIdColeccion())
+                    .nombreColeccion(coleccionDelete.getNombreColeccion())
+                    .productosColeccion(coleccionDelete.getProductosColeccion().stream().map(Producto::getNombreProducto).toList())
+                    .build();
             coleccionService.delete(coleccionDelete);
-            return new ResponseEntity<>(coleccionDelete, HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(response, HttpStatus.NO_CONTENT);
         } catch (DataAccessException e) {
             return new ResponseEntity<>(MensajeResponse.builder()
                     .mensaje(e.getMessage())

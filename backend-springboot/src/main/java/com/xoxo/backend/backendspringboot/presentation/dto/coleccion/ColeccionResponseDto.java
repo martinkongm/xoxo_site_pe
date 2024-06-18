@@ -10,11 +10,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ColeccionResponseDto implements Serializable{
-
     private Long idColeccion;
-
     private String nombreColeccion;
-
     private List<String> productosColeccion;
-
 }

@@ -13,6 +13,6 @@ import java.util.List;
 @NoArgsConstructor
 public class CarritoResponseDto {
     private Long id;
-    private String usuario;
+    private String emailComprador;
     private List<DetalleResponseDto> detalles;
 }

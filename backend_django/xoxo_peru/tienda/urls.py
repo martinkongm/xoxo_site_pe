@@ -1,6 +1,13 @@
-from .views import ConsumeApiView
-from django.urls import path
+# tienda/urls.py
+
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from .views import ColeccionViewSet, ProductoViewSet
+
+router = DefaultRouter()
+router.register(r'colecciones', ColeccionViewSet, basename='coleccion')
+router.register(r'productos', ProductoViewSet, basename='producto')
 
 urlpatterns = [
-    path('consume-api/', ConsumeApiView.as_view(), name='consume_api'),
+    path('', include(router.urls)),
 ]
