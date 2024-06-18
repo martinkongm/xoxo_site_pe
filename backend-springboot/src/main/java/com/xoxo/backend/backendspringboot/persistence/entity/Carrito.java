@@ -24,9 +24,9 @@ public class Carrito implements Serializable {
     private Long id;
 
     @Column(name = "total_carrito")
-    private double totalCarrito;
+    private double subtotal;
 
-    @Column(name = "email_comprador")
+    @Column(name = "email_comprador", unique = true)
     private String emailComprador;
     /*
     @ManyToOne

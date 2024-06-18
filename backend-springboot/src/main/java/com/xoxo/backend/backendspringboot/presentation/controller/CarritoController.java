@@ -28,7 +28,10 @@ public class CarritoController {
     @GetMapping("/carritos")
     public ResponseEntity<?> getAllCarritos() {
         List<CarritoResponseDto> carritos = carritoService.getAllCarritos().stream().map(c -> new CarritoResponseDto(
-                c.getId(), c.getEmailComprador(), c.getDetallesCarritos().stream().map(d -> new DetalleResponseDto(d.getId(), d.getCantidad(), d.getPrecioTotal(), d.getProducto().getNombreProducto())).toList()
+                c.getId(),
+                c.getEmailComprador(),
+                c.getDetallesCarritos().stream().mapToDouble(DetalleCarrito::getPrecioTotal).sum(),
+                c.getDetallesCarritos().stream().map(d -> new DetalleResponseDto(d.getId(), d.getCantidad(), d.getPrecioTotal(), d.getProducto().getNombreProducto())).toList()
         )).toList();
         if (carritos.isEmpty()) {
             return new ResponseEntity<>(MensajeResponse.builder()

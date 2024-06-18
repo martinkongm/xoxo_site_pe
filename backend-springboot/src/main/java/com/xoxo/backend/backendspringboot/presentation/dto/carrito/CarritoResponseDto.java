@@ -14,5 +14,6 @@ import java.util.List;
 public class CarritoResponseDto {
     private Long id;
     private String emailComprador;
+    private double subtotal;
     private List<DetalleResponseDto> detalles;
 }
