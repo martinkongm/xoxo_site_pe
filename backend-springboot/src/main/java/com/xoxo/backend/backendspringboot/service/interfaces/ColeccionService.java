@@ -8,18 +8,11 @@ import com.xoxo.backend.backendspringboot.presentation.dto.coleccion.ColeccionUp
 import java.util.List;
 
 public interface ColeccionService {
-
     List<Coleccion> listAll();
-
     Coleccion save(ColeccionCreateDto coleccionCreateDto);
-
     Coleccion update(ColeccionUpdateDto coleccionUpdateDto);
-
     Coleccion findById(Long id);
-
     void delete(Coleccion coleccion);
-
     boolean existsById(Long id);
-
     Coleccion getColeccionByName(String nombre);
 }

@@ -7,12 +7,10 @@ import com.xoxo.backend.backendspringboot.persistence.entity.Usuario;
 import java.util.List;
 
 public interface UsuarioService {
-
     List<Usuario> listAll();
     Usuario findById(Long id);
     Usuario save(UsuarioCreateDto usuarioCreateDto);
     Usuario update(UsuarioUpdateDto usuarioUpdateDto);
     void delete(Usuario usuario);
     boolean existsById(Long id);
-
 }

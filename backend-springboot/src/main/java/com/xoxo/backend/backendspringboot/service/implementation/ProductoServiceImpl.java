@@ -90,4 +90,10 @@ public class ProductoServiceImpl implements ProductoService {
         Coleccion miColeccion = coleccionRepository.getColeccionByName(coleccion.getNombreColeccion());
         return productoRepository.findProductosByColeccion(miColeccion);
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Producto> buscarProductos(String nombre) {
+        return productoRepository.findByNombreProductoContainingIgnoreCase(nombre);
+    }
 }

@@ -110,6 +110,17 @@ public class ProductoController {
                 .build(), HttpStatus.OK);
     }
 
+    @GetMapping("/productos/buscar")
+    public ResponseEntity<?> buscarProductos(@RequestParam(name = "nombre") String nombre) {
+        List<ProductoResponseDto> response = productoService.buscarProductos(nombre)
+                .stream()
+                .map(p -> new ProductoResponseDto(p.getIdProducto(), p.getNombreProducto(), p.getPrecioProducto(), p.getTamanoProducto(), p.getBeneficiosProducto(), p.getColeccion().getNombreColeccion(), p.getStockProducto(), p.getImagenProducto())).toList();
+        return new ResponseEntity<>(MensajeResponse.builder()
+                .mensaje("Listando registros.")
+                .object(response)
+                .build(), HttpStatus.OK);
+    }
+
 
     @PostMapping("/producto")
     public ResponseEntity<?> create(@RequestBody ProductoCreateDto productoCreateDto) {

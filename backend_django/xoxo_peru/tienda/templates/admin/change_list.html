@@ -1,0 +1,52 @@
+{% extends "admin/change_list.html" %}
+
+{% block result_list %}
+    {% if colecciones %}
+        <h2>Colecciones</h2>
+        <table class="model-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Productos</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for coleccion in colecciones %}
+                    <tr>
+                        <td>{{ coleccion.id }}</td>
+                        <td>{{ coleccion.nombre }}</td>
+                        <td>{{ coleccion.productos|join:", " }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+    {% if productos %}
+        <h2>Productos</h2>
+        <table class="model-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th>Tamaño</th>
+                    <th>Stock</th>
+                    <th>Colección</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for producto in productos %}
+                    <tr>
+                        <td>{{ producto.id }}</td>
+                        <td>{{ producto.nombre }}</td>
+                        <td>{{ producto.precio }}</td>
+                        <td>{{ producto.tamano }}</td>
+                        <td>{{ producto.stock }}</td>
+                        <td>{{ producto.coleccion }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+{% endblock %}

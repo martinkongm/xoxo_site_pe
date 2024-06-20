@@ -8,19 +8,12 @@ import com.xoxo.backend.backendspringboot.presentation.dto.producto.ProductoUpda
 import com.xoxo.backend.backendspringboot.persistence.entity.Producto;
 
 public interface ProductoService {
-
     List<Producto> listAll();
-
     Producto findById(Long id);
-
     Producto save(ProductoCreateDto productoCreateDto);
-
     Producto update(ProductoUpdateDto productoUpdateDto);
-
     void delete(Producto producto);
-
     boolean existsById(Long id);
-
     List<Producto> findProductosByColeccion(Coleccion coleccion);
-
+    List<Producto> buscarProductos(String nombre);
 }

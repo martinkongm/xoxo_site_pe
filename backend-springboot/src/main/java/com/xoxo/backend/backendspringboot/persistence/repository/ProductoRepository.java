@@ -15,4 +15,6 @@ public interface ProductoRepository extends CrudRepository<Producto, Long>{
     @Query("SELECT p FROM Producto p WHERE p.coleccion = ?1")
     List<Producto> findProductosByColeccion(Coleccion coleccion);
 
+    List<Producto> findByNombreProductoContainingIgnoreCase(String nombreProducto);
+
 }

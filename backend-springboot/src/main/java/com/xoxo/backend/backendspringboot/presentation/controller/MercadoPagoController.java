@@ -8,6 +8,7 @@ import com.mercadopago.client.preference.PreferenceRequest;
 import com.mercadopago.exceptions.MPApiException;
 import com.mercadopago.exceptions.MPException;
 import com.mercadopago.resources.preference.Preference;
+import com.xoxo.backend.backendspringboot.persistence.entity.Carrito;
 import com.xoxo.backend.backendspringboot.persistence.entity.DetalleCarrito;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
@@ -25,28 +26,31 @@ public class MercadoPagoController {
     private String mercadoLibreToken;
 
     @PostMapping("/mp")
-    public String getList (@RequestBody DetalleCarrito detalleCarrito) {
-        if (detalleCarrito == null) {
+    public String getList (@RequestBody Carrito carrito) {
+        if (carrito == null) {
             return "Error, carrito vacío...";
         }
-        //Estos campos debe llamarse igual que en el FRONTEND
-        String title = detalleCarrito.getProducto().getNombreProducto();
-        int quantity = detalleCarrito.getCantidad();
-        double price = detalleCarrito.getPrecioTotal();
+
+        List<DetalleCarrito> detallesCarrito = carrito.getDetallesCarritos();
 
         try {
             MercadoPagoConfig.setAccessToken(mercadoLibreToken);
 
             //Preferencia de venta
-            PreferenceItemRequest itemRequest = PreferenceItemRequest.builder()
-                    .title(title)
-                    .quantity(quantity)
-                    .unitPrice(new BigDecimal(price))
-                    .currencyId("PEN")
-                    .build();
-
             List<PreferenceItemRequest> items = new ArrayList<>();
-            items.add(itemRequest);
+
+            PreferenceItemRequest itemRequest;
+
+            for (DetalleCarrito dc : detallesCarrito) {
+                itemRequest = PreferenceItemRequest.builder()
+                        .title(dc.getProducto().getNombreProducto())
+                        .quantity(dc.getCantidad())
+                        .unitPrice(BigDecimal.valueOf(dc.getPrecioTotal()))
+                        .currencyId("PEN")
+                        .build();
+
+                items.add(itemRequest);
+            }
 
             //Preferencia de control de sucesos
             PreferenceBackUrlsRequest backUrls = PreferenceBackUrlsRequest.builder()
@@ -73,5 +77,4 @@ public class MercadoPagoController {
             throw new RuntimeException(e);
         }
     }
-
 }

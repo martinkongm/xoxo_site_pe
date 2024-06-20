@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-public class    UsuarioServiceImpl implements UsuarioService {
+public class UsuarioServiceImpl implements UsuarioService {
 
     private UsuarioRepository usuarioRepository;
 
