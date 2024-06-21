@@ -1,18 +1,14 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Row, Col } from 'react-bootstrap';
 import Loading from './components/Loading';
 import ShowProducts from '../product/components/ShowProducts';
 import Skeleton from "react-loading-skeleton"; 
 import ProductSection from "./ProductSection";
 
-import { FilterContext } from '../../context/FilterContext'; // Importar el contexto de filtro
-
 import { fetchProducts } from '../../api/Api';
 import { filterProducto } from '../../utils/filter';
 
 const Products = () => {
-    const { filter } = useContext(FilterContext); // Obtener el filtro del contexto
-    
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(false);
 

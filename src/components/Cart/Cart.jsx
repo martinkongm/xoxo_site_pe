@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom';
 import { addCart, delCart } from '../../redux/action/index';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { addProductToCart } from '../../services/carritoService';
 import ShippingCalculator from './ShippingCalculator';
 import './Cart.css';
 
@@ -11,11 +12,22 @@ const Cart = () => {
   const cart = useSelector((state) => state.cart.cart || []); // Asegurar que obtenemos el cart del estado
   const dispatch = useDispatch();
 
-  const handleButton = (product, action) => {
-    if (action === 'increment') {
-      dispatch(addCart(product));
-    } else if (action === 'decrement') {
-      dispatch(delCart(product));
+  const handleButton = async (product, action) => {
+    const carritoId = localStorage.getItem('carritoId');
+    if (!carritoId) return; // Si no hay carritoId, salir
+
+    try {
+      if (action === 'increment') {
+        await addProductToCart(carritoId, product.idProducto, product.quantity + 1, product.precioProducto * (product.quantity + 1));
+        dispatch(addCart(product));
+      } else if (action === 'decrement') {
+        if (product.quantity > 1) {
+          await addProductToCart(carritoId, product.idProducto, product.quantity - 1, product.precioProducto * (product.quantity - 1));
+          dispatch(delCart(product));
+        }
+      }
+    } catch (error) {
+      console.error('Error updating cart', error);
     }
   };
 
@@ -27,15 +39,15 @@ const Cart = () => {
 
   return (
     <div className="container py-5">
-      <h1 className="text-right font-weight-bold">My Cart</h1>
+      <h1 className="text-right font-weight-bold">Mi Carrito</h1>
       <div className="row">
         <div className="col-12">
           <div className="d-flex justify-content-between font-weight-bold py-2">
-            <div className="col-4">PRODUCT</div>
-            <div className="col-2">PRICE</div>
-            <div className="col-2">QTY</div>
+            <div className="col-4">PRODUCTO</div>
+            <div className="col-2">PRECIO</div>
+            <div className="col-2">CANTIDAD</div>
             <div className="col-2">TOTAL</div>
-            <div className="col-2"></div> {/* For delete icon */}
+            <div className="col-2"></div> {/* Icono de eliminar */}
           </div>
           <hr />
           {cart.length === 0 ? (
@@ -56,13 +68,13 @@ const Cart = () => {
                     </div>
                   </div>
                 </div>
-                <div className="col-2">De S/. {item.precioProducto}</div>
+                <div className="col-2">S/. {item.precioProducto}</div>
                 <div className="col-2 d-flex align-items-center">
                   <button className="btn btn-outline-secondary" onClick={() => handleButton(item, 'decrement')}>-</button>
                   <span className="mx-2">{item.quantity}</span>
                   <button className="btn btn-outline-secondary" onClick={() => handleButton(item, 'increment')}>+</button>
                 </div>
-                <div className="col-2">De S/. {(item.precioProducto * item.quantity).toFixed(2)}</div>
+                <div className="col-2">S/. {(item.precioProducto * item.quantity).toFixed(2)}</div>
                 <div className="col-2">
                   <button className="btn btn-outline-danger" onClick={() => handleRemove(item)}>
                     <FontAwesomeIcon icon={faTrash} />
@@ -76,7 +88,6 @@ const Cart = () => {
       <div style={{ marginTop: '180px' }}>
         <ShippingCalculator subtotal={subtotal} />
       </div>
-
     </div>
   );
 };

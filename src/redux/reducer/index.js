@@ -1,4 +1,3 @@
-// redux/reducer/index.js
 import { combineReducers } from 'redux';
 import handleCart from './handleCart';
 import products from './products';

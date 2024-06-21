@@ -2,13 +2,21 @@ import React, { useEffect, useState } from "react";
 import { NavLink } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { addCart } from '../../redux/action';
+import { Modal, Button } from 'react-bootstrap';
 
 const ProductSection = ({ title, data }) => {
     const [modifiedData, setModifiedData] = useState([]);
+    const [showModal, setShowModal] = useState(false);
     const dispatch = useDispatch();
 
-    const addProduct = (producto) => {
-        dispatch(addCart(producto));
+    const addProductToCart = (producto) => {
+        dispatch(addCart(producto))
+            .then(() => {
+                setShowModal(true);
+            })
+            .catch((error) => {
+                console.error("Error al agregar el producto al carrito", error);
+            });
     };
 
     useEffect(() => {
@@ -21,7 +29,7 @@ const ProductSection = ({ title, data }) => {
     }, [data]);
 
     if (!modifiedData.length) {
-        return null; // No renderizar la sección si no hay productos
+        return null;
     }
 
     return (
@@ -41,14 +49,33 @@ const ProductSection = ({ title, data }) => {
                                     </NavLink>
                                 </h6>
                                 <p className="card-text lead fw-bold">${producto.precioProducto}</p>
-                                <button className="btn btn-outline-dark mb-2" onClick={() => addProduct(producto)} style={{ borderRadius: '20px' }}>
-                                    Add to Cart
+                                <button className="btn btn-outline-dark mb-2" onClick={() => addProductToCart(producto)} style={{ borderRadius: '20px' }}>
+                                    Agregar carrito
                                 </button>
                             </div>
                         </div>
                     </div>
                 ))}
             </div>
+            <Modal show={showModal} onHide={() => setShowModal(false)} centered>
+                <Modal.Header closeButton>
+                    <Modal.Title>Producto Agregado al Carrito</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <p>El producto ha sido agregado al carrito con éxito.</p>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="primary" onClick={() => setShowModal(false)}>
+                        Cerrar
+                    </Button>
+                    <Button variant="success" onClick={() => {
+                        setShowModal(false);
+                        window.location.href = "/cart";
+                    }}>
+                        Pagar Ahora
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </div>
     );
 };
