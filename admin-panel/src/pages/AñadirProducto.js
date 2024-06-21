@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Form, Button } from 'react-bootstrap';
+import { Form, Button, Container } from 'react-bootstrap';
 import axios from 'axios';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const AñadirProducto = () => {
   const [nombre, setNombre] = useState('');
@@ -43,72 +44,74 @@ const AñadirProducto = () => {
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <Form.Group controlId="nombre">
-        <Form.Label>Nombre del Producto</Form.Label>
-        <Form.Control
-          type="text"
-          value={nombre}
-          onChange={e => setNombre(e.target.value)}
-        />
-      </Form.Group>
-      <Form.Group controlId="precio">
-        <Form.Label>Precio</Form.Label>
-        <Form.Control
-          type="number"
-          value={precio}
-          onChange={e => setPrecio(e.target.value)}
-        />
-      </Form.Group>
-      <Form.Group controlId="tamano">
-        <Form.Label>Tamaño</Form.Label>
-        <Form.Control
-          type="number"
-          value={tamano}
-          onChange={e => setTamano(e.target.value)}
-        />
-      </Form.Group>
-      <Form.Group controlId="beneficios">
-        <Form.Label>Beneficios</Form.Label>
-        <Form.Control
-          type="text"
-          value={beneficios}
-          onChange={e => setBeneficios(e.target.value)}
-        />
-      </Form.Group>
-      <Form.Group controlId="imagen">
-        <Form.Label>URL de la Imagen</Form.Label>
-        <Form.Control
-          type="text"
-          value={imagen}
-          onChange={e => setImagen(e.target.value)}
-        />
-      </Form.Group>
-      <Form.Group controlId="stock">
-        <Form.Label>Stock</Form.Label>
-        <Form.Control
-          type="number"
-          value={stock}
-          onChange={e => setStock(e.target.value)}
-        />
-      </Form.Group>
-      <Form.Group controlId="coleccionId">
-        <Form.Label>Colección</Form.Label>
-        <Form.Control
-          as="select"
-          value={coleccionId}
-          onChange={e => setColeccionId(e.target.value)}
-        >
-          <option value="">Selecciona una colección</option>
-          {colecciones.map(coleccion => (
-            <option key={coleccion.idColeccion} value={coleccion.idColeccion}>
-              {coleccion.nombreColeccion}
-            </option>
-          ))}
-        </Form.Control>
-      </Form.Group>
-      <Button type="submit">Añadir Producto</Button>
-    </Form>
+    <Container>
+      <Form onSubmit={handleSubmit}>
+        <Form.Group controlId="nombre">
+          <Form.Label>Nombre del Producto</Form.Label>
+          <Form.Control
+            type="text"
+            value={nombre}
+            onChange={e => setNombre(e.target.value)}
+          />
+        </Form.Group>
+        <Form.Group controlId="precio">
+          <Form.Label>Precio</Form.Label>
+          <Form.Control
+            type="number"
+            value={precio}
+            onChange={e => setPrecio(e.target.value)}
+          />
+        </Form.Group>
+        <Form.Group controlId="tamano">
+          <Form.Label>Tamaño</Form.Label>
+          <Form.Control
+            type="number"
+            value={tamano}
+            onChange={e => setTamano(e.target.value)}
+          />
+        </Form.Group>
+        <Form.Group controlId="beneficios">
+          <Form.Label>Beneficios</Form.Label>
+          <Form.Control
+            type="text"
+            value={beneficios}
+            onChange={e => setBeneficios(e.target.value)}
+          />
+        </Form.Group>
+        <Form.Group controlId="imagen">
+          <Form.Label>URL de la Imagen</Form.Label>
+          <Form.Control
+            type="text"
+            value={imagen}
+            onChange={e => setImagen(e.target.value)}
+          />
+        </Form.Group>
+        <Form.Group controlId="stock">
+          <Form.Label>Stock</Form.Label>
+          <Form.Control
+            type="number"
+            value={stock}
+            onChange={e => setStock(e.target.value)}
+          />
+        </Form.Group>
+        <Form.Group controlId="coleccionId">
+          <Form.Label>Colección</Form.Label>
+          <Form.Control
+            as="select"
+            value={coleccionId}
+            onChange={e => setColeccionId(e.target.value)}
+          >
+            <option value="">Selecciona una colección</option>
+            {colecciones.map(coleccion => (
+              <option key={coleccion.idColeccion} value={coleccion.idColeccion}>
+                {coleccion.nombreColeccion}
+              </option>
+            ))}
+          </Form.Control>
+        </Form.Group>
+        <Button type="submit" className="mt-3">Añadir Producto</Button>
+      </Form>
+    </Container>
   );
 };
 

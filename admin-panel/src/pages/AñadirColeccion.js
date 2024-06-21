@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Form, Button } from 'react-bootstrap';
+import { Form, Button, Container } from 'react-bootstrap';
 import axios from 'axios';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const AñadirColeccion = () => {
   const [nombre, setNombre] = useState('');
@@ -17,17 +18,19 @@ const AñadirColeccion = () => {
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <Form.Group controlId="nombre">
-        <Form.Label>Nombre de la Colección</Form.Label>
-        <Form.Control
-          type="text"
-          value={nombre}
-          onChange={e => setNombre(e.target.value)}
-        />
-      </Form.Group>
-      <Button type="submit">Añadir Colección</Button>
-    </Form>
+    <Container>
+      <Form onSubmit={handleSubmit}>
+        <Form.Group controlId="nombre">
+          <Form.Label>Nombre de la Colección</Form.Label>
+          <Form.Control
+            type="text"
+            value={nombre}
+            onChange={e => setNombre(e.target.value)}
+          />
+        </Form.Group>
+        <Button type="submit" className="mt-3">Añadir Colección</Button>
+      </Form>
+    </Container>
   );
 };
 

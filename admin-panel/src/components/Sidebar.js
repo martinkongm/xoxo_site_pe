@@ -1,17 +1,36 @@
-import { CNavGroup, CNavItem } from '@coreui/react';
+import React from 'react';
+import {
+  CDropdown,
+  CDropdownToggle,
+  CDropdownMenu,
+  CDropdownItem,
+} from '@coreui/react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './Sidebar.css';
 
 const Sidebar = () => {
   return (
-    <>
-      <CNavGroup toggler="Colecciones">
-        <CNavItem href="/colecciones">Ver Colecciones</CNavItem>
-        <CNavItem href="/colecciones/nueva">Añadir Colección</CNavItem>
-      </CNavGroup>
-      <CNavGroup toggler="Productos">
-        <CNavItem href="/productos">Ver Productos</CNavItem>
-        <CNavItem href="/productos/nuevo">Añadir Producto</CNavItem>
-      </CNavGroup>
-    </>
+    <div className='container'>
+      <h1 className='titulo'>XOXO Admin</h1>
+      <CDropdown className='coleccionDropdown'>
+        <CDropdownToggle color="primary">
+          Colecciones
+        </CDropdownToggle>
+        <CDropdownMenu>
+          <CDropdownItem href="/colecciones">Ver Colecciones</CDropdownItem>
+          <CDropdownItem href="/colecciones/nueva">Añadir Colección</CDropdownItem>
+        </CDropdownMenu>
+      </CDropdown>
+      <CDropdown className='productoDropdown'>
+        <CDropdownToggle color="primary">
+          Productos
+        </CDropdownToggle>
+        <CDropdownMenu>
+          <CDropdownItem href="/productos">Ver Productos</CDropdownItem>
+          <CDropdownItem href="/productos/nuevo">Añadir Producto</CDropdownItem>
+        </CDropdownMenu>
+      </CDropdown>
+    </div>
   );
 };
 

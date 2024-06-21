@@ -1,0 +1,17 @@
+.container {
+    margin-top: 50px;
+    gap: 20px;
+}
+
+.titulo {
+    margin-bottom: 20px;
+}
+
+.coleccionDropdown {
+    margin-right: 30px;
+    height: 60px;
+}
+
+.productoDropdown {
+    height: 60px;
+}

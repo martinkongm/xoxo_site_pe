@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Table, Button } from 'react-bootstrap';
+import { Table, Button, Container } from 'react-bootstrap';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const DetalleColeccion = () => {
   const { id } = useParams();
@@ -28,7 +29,7 @@ const DetalleColeccion = () => {
   }
 
   return (
-    <div>
+    <Container>
       <h1>Detalle de la Colección</h1>
       <Table striped bordered hover>
         <thead>
@@ -47,8 +48,8 @@ const DetalleColeccion = () => {
         </tbody>
       </Table>
       <Button onClick={() => navigate(`/colecciones/${id}/modificar`)}>Modificar</Button>
-      <Button variant="secondary" onClick={() => navigate('/colecciones')}>Volver</Button>
-    </div>
+      <Button variant="secondary" onClick={() => navigate('/colecciones')} className="ml-2">Volver</Button>
+    </Container>
   );
 };
 

@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Table, Button } from 'react-bootstrap';
-import { Link, useNavigate } from 'react-router-dom';
+import { Table, Button, Container } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './VerProductos.css';
 
 const VerProductos = () => {
   const [productos, setProductos] = useState([]);
@@ -17,21 +19,20 @@ const VerProductos = () => {
       });
   }, []);
 
-  const eliminarProducto = (id) => {
-    axios.delete(`http://localhost:8080/api/v1/producto/${id}`)
+  const handleEliminarProducto = (idProducto) => {
+    axios.delete(`http://localhost:8080/api/v1/producto/${idProducto}`)
       .then(() => {
+        setProductos(productos.filter(producto => producto.idProducto !== idProducto));
         alert('Producto eliminado');
-        setProductos(productos.filter(producto => producto.idProducto !== id));
       })
       .catch(error => {
-        console.error('Error deleting producto:', error);
+        console.error('Error eliminando el producto:', error);
       });
   };
 
   return (
-    <div>
+    <Container>
       <h1>Productos</h1>
-      <Button onClick={() => navigate('/productos/nuevo')}>Añadir Producto</Button>
       <Table striped bordered hover>
         <thead>
           <tr>
@@ -46,15 +47,15 @@ const VerProductos = () => {
               <td>{producto.nombreProducto}</td>
               <td>{producto.precioProducto}</td>
               <td>
-                <Link to={`/productos/${producto.idProducto}`}>Ver</Link>{' '}
-                <Link to={`/productos/${producto.idProducto}/modificar`}>Modificar</Link>{' '}
-                <Button variant="danger" onClick={() => eliminarProducto(producto.idProducto)}>Eliminar</Button>
+                <Button variant="primary" onClick={() => navigate(`/productos/${producto.idProducto}`)}>Ver</Button>
+                <Button variant="warning" className="btn-mod ml-2" onClick={() => navigate(`/productos/${producto.idProducto}/modificar/`)}>Modificar</Button>
+                <Button variant="danger" className="btn-del ml-2" onClick={() => handleEliminarProducto(producto.idProducto)}>Eliminar</Button>
               </td>
             </tr>
           ))}
         </tbody>
       </Table>
-    </div>
+    </Container>
   );
 };
 
