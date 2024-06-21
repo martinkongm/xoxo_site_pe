@@ -51,13 +51,14 @@ public class ColeccionServiceImpl implements ColeccionService {
     @Transactional
     public Coleccion update(ColeccionUpdateDto coleccionUpdateDto) {
         Coleccion coleccion = coleccionDao.findById(coleccionUpdateDto.getIdColeccion()).orElseThrow();
+        /*
         List<Producto> productos = new ArrayList<>();
         for (Producto p : coleccionUpdateDto.getProductosColeccion()) {
             Producto addProduct = productoRepository.findById(p.getIdProducto()).orElseThrow();
             productos.add(addProduct);
-        }
+        }*/
         coleccion.setNombreColeccion(coleccionUpdateDto.getNombreColeccion());
-        coleccion.setProductosColeccion(productos);
+        //coleccion.setProductosColeccion(productos);
         return coleccion;
     }
 

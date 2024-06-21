@@ -25,7 +25,7 @@ const ModificarProducto = () => {
         setBeneficios(producto.beneficiosProducto);
         setImagen(producto.imagenProducto);
         setStock(producto.stockProducto);
-        setColeccionId(producto.idColeccion);
+        //setColeccionId(producto.idColeccion);
       })
       .catch(error => {
         console.error('Error fetching producto:', error);
@@ -50,7 +50,7 @@ const ModificarProducto = () => {
       beneficiosProducto: beneficios,
       imagenProducto: imagen,
       stockProducto: parseInt(stock),
-      idColeccion: coleccionId,
+      //idColeccion: coleccionId,
     };
     axios.put(`http://localhost:8080/api/v1/producto/${id}`, productoModificado)
       .then(() => {

@@ -37,7 +37,7 @@ public class Producto implements Serializable{
     @Column(name = "stock_producto")
     private int stockProducto;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name = "id_coleccion", nullable = false)
     @JsonBackReference
     private Coleccion coleccion;

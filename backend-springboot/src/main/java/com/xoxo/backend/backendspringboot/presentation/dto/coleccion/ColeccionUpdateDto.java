@@ -15,5 +15,5 @@ import java.util.List;
 public class ColeccionUpdateDto {
     private Long idColeccion;
     private String nombreColeccion;
-    private List<Producto> productosColeccion;
+    //private List<Producto> productosColeccion;
 }

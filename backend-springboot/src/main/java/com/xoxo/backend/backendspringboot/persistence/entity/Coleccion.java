@@ -22,7 +22,7 @@ public class Coleccion implements Serializable{
     @Column(name = "nombre_coleccion", unique = true)
     private String nombreColeccion;
 
-    @OneToMany(mappedBy = "coleccion")
+    @OneToMany(mappedBy = "coleccion", cascade = {CascadeType.REMOVE, CascadeType.PERSIST})
     @JsonManagedReference
     private List<Producto> productosColeccion;
 }

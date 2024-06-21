@@ -40,7 +40,6 @@ const VerColecciones = () => {
       <Table striped bordered hover>
         <thead>
           <tr>
-            <th>ID</th>
             <th>Nombre</th>
             <th>Productos</th>
             <th>Acciones</th>
@@ -50,7 +49,7 @@ const VerColecciones = () => {
           {colecciones.length > 0 ? (
             colecciones.map(coleccion => (
               <tr key={coleccion.idColeccion}>
-                <td>{coleccion.idColeccion}</td>
+              
                 <td>{coleccion.nombreColeccion}</td>
                 <td>{coleccion.productosColeccion.join(', ')}</td>
                 <td>

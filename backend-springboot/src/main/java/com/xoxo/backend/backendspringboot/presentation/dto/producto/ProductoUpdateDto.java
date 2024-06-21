@@ -14,5 +14,5 @@ public class ProductoUpdateDto {
     private String beneficiosProducto;
     private String imagenProducto;
     private int stockProducto;
-    private Long idColeccion;
+    //private Long idColeccion;
 }

@@ -35,7 +35,6 @@ const VerProductos = () => {
       <Table striped bordered hover>
         <thead>
           <tr>
-            <th>ID</th>
             <th>Nombre</th>
             <th>Precio</th>
             <th>Acciones</th>
@@ -44,7 +43,6 @@ const VerProductos = () => {
         <tbody>
           {productos.map(producto => (
             <tr key={producto.idProducto}>
-              <td>{producto.idProducto}</td>
               <td>{producto.nombreProducto}</td>
               <td>{producto.precioProducto}</td>
               <td>

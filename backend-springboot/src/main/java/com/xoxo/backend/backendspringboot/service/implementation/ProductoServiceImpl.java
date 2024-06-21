@@ -59,7 +59,7 @@ public class ProductoServiceImpl implements ProductoService {
     public Producto update(ProductoUpdateDto productoUpdateDto) {
         Producto producto = productoRepository.findById(productoUpdateDto.getIdProducto()).orElseThrow();
 
-        Coleccion coleccion = coleccionRepository.findById(productoUpdateDto.getIdColeccion()).orElseThrow();
+        //Coleccion coleccion = coleccionRepository.findById(productoUpdateDto.getIdColeccion()).orElseThrow();
 
         producto.setNombreProducto(productoUpdateDto.getNombreProducto());
         producto.setPrecioProducto(productoUpdateDto.getPrecioProducto());
@@ -67,7 +67,7 @@ public class ProductoServiceImpl implements ProductoService {
         producto.setBeneficiosProducto(productoUpdateDto.getBeneficiosProducto());
         producto.setImagenProducto(productoUpdateDto.getImagenProducto());
         producto.setStockProducto(productoUpdateDto.getStockProducto());
-        producto.setColeccion(coleccion);
+        //producto.setColeccion(coleccion);
 
         return productoRepository.save(producto);
     }

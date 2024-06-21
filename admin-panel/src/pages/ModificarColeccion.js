@@ -13,7 +13,7 @@ const ModificarColeccion = () => {
     axios.get(`http://localhost:8080/api/v1/coleccion/${id}`)
       .then(response => {
         setNombre(response.data.object.nombreColeccion);
-        setProductos(response.data.object.productosColeccion)
+        setProductos(response.data.object.productosColeccion) //Arreglo de string de productos
       })
       .catch(error => {
         console.error('Error fetching coleccion:', error);
@@ -22,18 +22,8 @@ const ModificarColeccion = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const productosColeccion = productos.map(producto => ({ 
-      idProducto: producto.idProducto,
-      nombreProducto: producto.nombreProducto,
-      precioProducto: producto.precioProducto,
-      tamanoProducto: producto.tamanoProducto,
-      beneficiosProducto: producto.beneficiosProducto,
-      nombreColeccion: producto.nombreColeccion,
-      stockProducto: producto.stockProducto,
-      imagenProducto: producto.imagenProducto
-    
-    }));
-    axios.put(`http://localhost:8080/api/v1/coleccion/${id}`, { idColeccion: id, nombreColeccion: nombre, productosColeccion: productosColeccion })
+    const productosColeccion = productos.map(producto => ({ idProducto: producto.idProducto }));
+    axios.put(`http://localhost:8080/api/v1/coleccion/${id}`, { idColeccion: id, nombreColeccion: nombre, productosColeccion })
       .then(() => {
         alert('Colección modificada');
         navigate('/colecciones');
